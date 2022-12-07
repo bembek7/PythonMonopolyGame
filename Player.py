@@ -5,7 +5,7 @@ class Player:
         self._name = name
         self._cash = 1500
         self._position = 0
-        self._owning = []
+        self._properties = []
     
     def get_name(self):
         return self._name

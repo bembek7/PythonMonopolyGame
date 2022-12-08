@@ -10,7 +10,7 @@ class Player:
     def get_name(self):
         return self._name
 
-    def pay_cash(self, amount):
+    def pay(self, amount):
         if self._cash - amount >= 0:
             self._cash = self._cash - amount
     # wymuszenie zastawu/sprzedaży

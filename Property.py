@@ -1,8 +1,7 @@
 #buying
 class Property:
-    def __init__(self, name, position, basic_charge, price) -> None:
+    def __init__(self, name, basic_charge, price) -> None:
         self._name = name
-        self._position = position
         self._basic_charge = basic_charge
         self._owner = ""
         self._price = price
@@ -24,10 +23,10 @@ class Property:
 
 
 class TypicalProperty(Property):
-    def __init__(self, name, position, basic_charge, price, color, apartment_price) -> None:
-        super().__init__(name, position, basic_charge, price)
+    def __init__(self, name, basic_charge, price, color, apartment_price) -> None:
+        super().__init__(name, basic_charge, price)
         self._color = color
-        self._apartments = 0 # 5 = hotel
+        self._apartments = 1 # 6 = hotel
         self._apartment_price = apartment_price
     
     def gain_apartment(self):
@@ -39,12 +38,12 @@ class TypicalProperty(Property):
         return self._apartment_price
 
     def charge(self):
-        return max(self._basic_charge, self._basic_charge * self._apartments)
+        return self._basic_charge * self._apartments
 
 
 class SpecialProperty(Property):
-    def __init__(self, name, position, basic_charge, price, type) -> None:
-        super().__init__(name, position, basic_charge, price)
+    def __init__(self, name, basic_charge, price, type) -> None:
+        super().__init__(name, basic_charge, price)
         self._type = type
 
     def charge(self, multiplicator):

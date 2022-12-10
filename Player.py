@@ -13,9 +13,13 @@ class Player:
     def pay(self, amount):
         if self._cash - amount >= 0:
             self._cash = self._cash - amount
+        return True
     # wymuszenie zastawu/sprzedaży
 
-    def move(self, result):
+    def buy_property(self, property):
+        self._properties.append(property)
+
+    def move(self, result, game):
         board_places = 40
         if self._position + result < 0:
             self._position = board_places + self._position + result

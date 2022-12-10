@@ -17,11 +17,15 @@ class PropertyField(Field):
 
     def Action(self, player: Player):
         if self._property.get_owner() != "":
-            player.pay(self._property.get_price())
+            if player.pay(self._property.get_price()):
+                player.buy_property(self._property)
+                self._property.set_owner(player.get_name())
         else:
             player.pay(self._property.charge())
 
 class SpecialField(Field):
-    def Action(self, player, action):
-        # special actions will be implemented
+    def __init__(self, postion, name="") -> None:
+        super().__init__(postion, name)
+        # self._action = action
+    def Action(self, player):
         pass

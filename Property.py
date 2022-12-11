@@ -40,11 +40,23 @@ class TypicalProperty(Property):
     def charge(self):
         return self._basic_charge * self._apartments
 
-
 class SpecialProperty(Property):
     def __init__(self, name, basic_charge, price, type) -> None:
         super().__init__(name, basic_charge, price)
         self._type = type
 
-    def charge(self, multiplicator):
-        return multiplicator * self._basic_charge
+    def get_type(self):
+        return self._type
+
+class AirportProperty(SpecialProperty):
+    def __init__(self, name, basic_charge, price, type) -> None:
+        super().__init__(name, basic_charge, price, type)
+
+    def charge(self):
+        owning_other = self._owner.get_amount_of_type()
+        if owning_other == 3:
+            owning_other = 4
+        elif owning_other == 4:
+            owning_other = 8
+        return self._basic_charge * owning_other
+    

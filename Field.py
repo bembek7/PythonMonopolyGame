@@ -3,16 +3,16 @@ from Player import Player
 
 
 class Field:
-    def __init__(self, postion, name = "") -> None:
-        self._position = postion
+    def __init__(self, position, name = "") -> None:
+        self._position = position
         self._name = name
 
     def Action(self):
         pass
 
 class PropertyField(Field):
-    def __init__(self, postion, property: Property) -> None:
-        super().__init__(postion, property.get_name())
+    def __init__(self, position, property: Property) -> None:
+        super().__init__(position, property.get_name())
         self._property = property
 
     def Action(self, player: Player):
@@ -23,9 +23,16 @@ class PropertyField(Field):
         else:
             player.pay(self._property.charge())
 
-class SpecialField(Field):
-    def __init__(self, postion, name="") -> None:
-        super().__init__(postion, name)
-        # self._action = action
+class ChanceField(Field):
+    def __init__(self, position, name="", possible_actions = []) -> None:
+        super().__init__(position, name)
+        self._possible_actions = possible_actions
+    def Action(self, player, action):
+        action(player)
+
+class PayField(Field):
+    def __init__(self, position, name, amount_to_pay) -> None:
+        super().__init__(position, name)
+        self._amount_to_pay = amount_to_pay
     def Action(self, player):
-        pass
+        player.pay(self._amount_to_pay)

@@ -42,7 +42,7 @@ class Player:
 
     def move(self, result, game = Game):
         board_places = game.get_board_length()
-        if self._position + result > 39:
+        if self._position + result >= board_places:
             self._cash += 200
         if self._position + result < 0:
             self._position = board_places + self._position + result

@@ -6,11 +6,12 @@ from Field import PayField
 from Field import ChanceField
 from Field import GoToJailField
 from Field import PropertyField
+from Field import Field
 
 possible_actions = []
 
 board = [
-    (0, "Start"),
+    Field(0, "Start"),
     PropertyField(1, TypicalProperty("", 10, 60, "brown", 50)),
     ChanceField(2, "Kasa Społeczna", possible_actions[0]),
     PropertyField(3, TypicalProperty("", 10, 60, "brown", 50)),
@@ -20,7 +21,7 @@ board = [
     ChanceField(7, "Szansa", possible_actions[0]),
     PropertyField(8, TypicalProperty("", 10, 100, "light blue", 50)),
     PropertyField(9, TypicalProperty("", 10, 120, "light blue", 50)),
-    (10, "Więzienie"),
+    Field(10, "Więzienie"),
     PropertyField(11, TypicalProperty("", 10, 140, "light blue", 50)),
     PropertyField(12, DiceChargeProperty("", 10, 120, "dicecharge")),
     PropertyField(13, TypicalProperty("", 10, 140, "light blue", 50)),
@@ -30,7 +31,7 @@ board = [
     ChanceField(17, "Kasa Społeczna", possible_actions[0]),
     PropertyField(18, TypicalProperty("", 10, 180, "orange", 50)),
     PropertyField(19, TypicalProperty("", 10, 200, "orange", 50)),
-    (20, "Parking"),
+    Field(20, "Parking"),
     PropertyField(21, TypicalProperty("", 10, 220, "red", 50)),
     ChanceField(22, "Szansa", possible_actions[0]),
     PropertyField(23, TypicalProperty("", 10, 220, "red", 50)),

@@ -29,7 +29,7 @@ class TypicalProperty(Property):
         self._apartments = 1 # 6 = hotel
         self._apartment_price = apartment_price
     
-    def gain_apartment(self):
+    def buy_apartment(self):
         if(self._apartments <5):
             self._apartments += 1
         # dodanie bloku na rushowanie jednego pola

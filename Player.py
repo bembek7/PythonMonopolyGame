@@ -1,4 +1,5 @@
 from Game import Game
+from Property import Property
 # pieniądze
 # lista posiadlosci
 class Player:
@@ -37,8 +38,9 @@ class Player:
                 result += 1
         return result
 
-    def buy_property(self, property):
+    def buy_property(self, property : Property):
         self._properties.append(property)
+        self.pay(property.get_price())
 
     def move(self, result, game = Game):
         board_places = game.get_board_length()

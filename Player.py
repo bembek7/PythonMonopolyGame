@@ -1,3 +1,4 @@
+from Game import Game
 # pieniądze
 # lista posiadlosci
 class Player:
@@ -7,7 +8,19 @@ class Player:
         self._position = 0
         self._properties = []
         self._in_jail = False
+
+    def get_position(self):
+        return self._position
+
+    def set_position(self, newposition):
+        self._position = newposition
     
+    def get_in_jail(self):
+        return self._in_jail
+
+    def set_in_jail(self, setjail):
+        self._in_jail = setjail
+
     def get_name(self):
         return self._name
 
@@ -27,8 +40,10 @@ class Player:
     def buy_property(self, property):
         self._properties.append(property)
 
-    def move(self, result, game):
-        board_places = 40
+    def move(self, result, game = Game):
+        board_places = game.get_board_length()
+        if self._position + result > 39:
+            self._cash += 200
         if self._position + result < 0:
             self._position = board_places + self._position + result
         self._position = (self._position + result) % board_places

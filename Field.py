@@ -36,3 +36,8 @@ class PayField(Field):
         self._amount_to_pay = amount_to_pay
     def Action(self, player):
         player.pay(self._amount_to_pay)
+
+class GoToJailField(Field):
+    def Action(self, player : Player):
+        player.set_position(10) #
+        player.set_in_jail(True)

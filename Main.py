@@ -1,6 +1,7 @@
 from Game import Game
 from Property import TypicalProperty
 from Property import AirportProperty
+from Property import DiceChargeProperty
 
 possible_actions = []
 
@@ -15,9 +16,9 @@ board = [
     (7, "Szansa", possible_actions[0]),
     (8, TypicalProperty("", 10, 100, "light blue", 50)),
     (9, TypicalProperty("", 10, 120, "light blue", 50)),
-    (10,"Więzienie"),
+    (10, "Więzienie"),
     (11, TypicalProperty("", 10, 140, "light blue", 50)),
-    (12, ""),
+    (12, DiceChargeProperty("", 10, 120, "dicecharge")),
     (13, TypicalProperty("", 10, 140, "light blue", 50)),
     (14, TypicalProperty("", 10, 160, "light blue", 50)),
     (15, AirportProperty("", 25, 200, "airport")),
@@ -33,12 +34,12 @@ board = [
     (25, AirportProperty("", 25, 200, "airport")),
     (26, TypicalProperty("", 19, 10, 260, "yellow", 50)),
     (27, TypicalProperty("", 19, 10, 260, "yellow", 50)),
-    (28, ""),
+    (28, DiceChargeProperty("", 10, 120, "dicecharge")),
     (29, TypicalProperty("", 19, 10, 260, "yellow", 50)),
     (30, "Idź do więzienia", possible_actions[0]),
     (31, TypicalProperty("", 19, 10, 300, "green", 50)),
     (32, TypicalProperty("", 19, 10, 300, "green", 50)),
-    (33,"Kasa Społeczna", possible_actions[0]),
+    (33, "Kasa Społeczna", possible_actions[0]),
     (34, TypicalProperty("", 19, 10, 320, "green", 50)),
     (35, AirportProperty("", 25, 200, "airport")),
     (36, "Szansa", possible_actions[0]),

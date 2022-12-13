@@ -6,6 +6,7 @@ class Player:
         self._cash = 1500
         self._position = 0
         self._properties = []
+        self._in_jail = False
     
     def get_name(self):
         return self._name

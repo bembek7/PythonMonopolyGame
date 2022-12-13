@@ -49,9 +49,6 @@ class SpecialProperty(Property):
         return self._type
 
 class AirportProperty(SpecialProperty):
-    def __init__(self, name, basic_charge, price, type) -> None:
-        super().__init__(name, basic_charge, price, type)
-
     def charge(self):
         owning_other = self._owner.get_amount_of_type()
         if owning_other == 3:
@@ -60,3 +57,11 @@ class AirportProperty(SpecialProperty):
             owning_other = 8
         return self._basic_charge * owning_other
     
+class DiceChargeProperty(SpecialProperty):
+    def charge(self, dice_result):
+        owning_other = self._owner.get_amount_of_type()
+        if owning_other == 2:
+            charge = self._basic_charge * dice_result
+        else:
+            charge = round(self._basic_charge * dice_result / 2)
+        return charge

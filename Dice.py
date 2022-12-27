@@ -1,7 +1,7 @@
 import random
 
-def basic_roll(self, number_of_dices, range):
+def basic_roll(number_of_dices, range_of_roll):
     result = 0
-    for a in number_of_dices:
-        result += random.randint(0, range)
-        return result
+    for a in range(number_of_dices):
+        result += random.randint(1, range_of_roll)
+    return result

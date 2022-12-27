@@ -18,7 +18,7 @@
     <item>
      <widget class="QStackedWidget" name="plansze">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="menu">
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -178,7 +178,89 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="gra"/>
+      <widget class="QWidget" name="gra">
+       <widget class="QLabel" name="tura">
+        <property name="geometry">
+         <rect>
+          <x>400</x>
+          <y>30</y>
+          <width>251</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Tura gracza: </string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="RzutButton">
+        <property name="geometry">
+         <rect>
+          <x>820</x>
+          <y>120</y>
+          <width>191</width>
+          <height>91</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>Rzuć kostką</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="KupDomek">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>820</x>
+          <y>20</y>
+          <width>191</width>
+          <height>81</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Kup domek</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="WynikRzutu">
+        <property name="geometry">
+         <rect>
+          <x>880</x>
+          <y>230</y>
+          <width>71</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>ArrowCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </widget>
      </widget>
     </item>
    </layout>

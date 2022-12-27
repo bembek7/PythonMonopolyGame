@@ -118,6 +118,27 @@ class Ui_MainWindow(object):
         self.plansze.addWidget(self.menu)
         self.gra = QWidget()
         self.gra.setObjectName(u"gra")
+        self.tura = QLabel(self.gra)
+        self.tura.setObjectName(u"tura")
+        self.tura.setGeometry(QRect(400, 30, 251, 71))
+        font2 = QFont()
+        font2.setPointSize(20)
+        self.tura.setFont(font2)
+        self.RzutButton = QPushButton(self.gra)
+        self.RzutButton.setObjectName(u"RzutButton")
+        self.RzutButton.setGeometry(QRect(820, 120, 191, 91))
+        self.RzutButton.setFont(font2)
+        self.RzutButton.setCursor(QCursor(Qt.PointingHandCursor))
+        self.KupDomek = QPushButton(self.gra)
+        self.KupDomek.setObjectName(u"KupDomek")
+        self.KupDomek.setEnabled(False)
+        self.KupDomek.setGeometry(QRect(820, 20, 191, 81))
+        self.KupDomek.setFont(font2)
+        self.WynikRzutu = QLabel(self.gra)
+        self.WynikRzutu.setObjectName(u"WynikRzutu")
+        self.WynikRzutu.setGeometry(QRect(880, 230, 71, 71))
+        self.WynikRzutu.setFont(font2)
+        self.WynikRzutu.setCursor(QCursor(Qt.ArrowCursor))
         self.plansze.addWidget(self.gra)
 
         self.verticalLayout_2.addWidget(self.plansze)
@@ -133,7 +154,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.plansze.setCurrentIndex(0)
+        self.plansze.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -146,5 +167,9 @@ class Ui_MainWindow(object):
         self.lineEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Wpisz imi\u0119 gracza", None))
         self.DodajGraczaButton.setText(QCoreApplication.translate("MainWindow", u"Dodaj gracza", None))
         self.GrajButton.setText(QCoreApplication.translate("MainWindow", u"Graj", None))
+        self.tura.setText(QCoreApplication.translate("MainWindow", u"Tura gracza: ", None))
+        self.RzutButton.setText(QCoreApplication.translate("MainWindow", u"Rzu\u0107 kostk\u0105", None))
+        self.KupDomek.setText(QCoreApplication.translate("MainWindow", u"Kup domek", None))
+        self.WynikRzutu.setText("")
     # retranslateUi
 

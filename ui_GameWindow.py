@@ -17,26 +17,31 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(911, 723)
+        MainWindow.resize(1051, 723)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_2 = QVBoxLayout(self.centralwidget)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.label_2 = QLabel(self.centralwidget)
-        self.label_2.setObjectName(u"label_2")
+        self.plansze = QStackedWidget(self.centralwidget)
+        self.plansze.setObjectName(u"plansze")
+        self.menu = QWidget()
+        self.menu.setObjectName(u"menu")
+        self.verticalLayout_3 = QVBoxLayout(self.menu)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.Logo = QLabel(self.menu)
+        self.Logo.setObjectName(u"Logo")
         font = QFont()
-        font.setPointSize(40)
-        self.label_2.setFont(font)
-        self.label_2.setLayoutDirection(Qt.LeftToRight)
-        self.label_2.setAlignment(Qt.AlignCenter)
+        font.setPointSize(50)
+        self.Logo.setFont(font)
+        self.Logo.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout_2.addWidget(self.label_2)
+        self.verticalLayout_3.addWidget(self.Logo)
 
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.label = QLabel(self.centralwidget)
+        self.label = QLabel(self.menu)
         self.label.setObjectName(u"label")
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
@@ -51,35 +56,35 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.label)
 
-        self.listWidget = QListWidget(self.centralwidget)
-        self.listWidget.setObjectName(u"listWidget")
+        self.ListaGraczy = QListWidget(self.menu)
+        self.ListaGraczy.setObjectName(u"ListaGraczy")
         sizePolicy1 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.MinimumExpanding)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.listWidget.sizePolicy().hasHeightForWidth())
-        self.listWidget.setSizePolicy(sizePolicy1)
-        self.listWidget.setMinimumSize(QSize(0, 10))
-        self.listWidget.setMaximumSize(QSize(16777215, 167222))
+        sizePolicy1.setHeightForWidth(self.ListaGraczy.sizePolicy().hasHeightForWidth())
+        self.ListaGraczy.setSizePolicy(sizePolicy1)
+        self.ListaGraczy.setMinimumSize(QSize(0, 10))
+        self.ListaGraczy.setMaximumSize(QSize(16777215, 167222))
 
-        self.verticalLayout.addWidget(self.listWidget)
+        self.verticalLayout.addWidget(self.ListaGraczy)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.lineEdit = QLineEdit(self.centralwidget)
+        self.lineEdit = QLineEdit(self.menu)
         self.lineEdit.setObjectName(u"lineEdit")
 
         self.horizontalLayout.addWidget(self.lineEdit)
 
-        self.pushButton = QPushButton(self.centralwidget)
-        self.pushButton.setObjectName(u"pushButton")
+        self.DodajGraczaButton = QPushButton(self.menu)
+        self.DodajGraczaButton.setObjectName(u"DodajGraczaButton")
         sizePolicy2 = QSizePolicy(QSizePolicy.Maximum, QSizePolicy.Maximum)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
-        self.pushButton.setSizePolicy(sizePolicy2)
-        self.pushButton.setCursor(QCursor(Qt.PointingHandCursor))
+        sizePolicy2.setHeightForWidth(self.DodajGraczaButton.sizePolicy().hasHeightForWidth())
+        self.DodajGraczaButton.setSizePolicy(sizePolicy2)
+        self.DodajGraczaButton.setCursor(QCursor(Qt.PointingHandCursor))
 
-        self.horizontalLayout.addWidget(self.pushButton)
+        self.horizontalLayout.addWidget(self.DodajGraczaButton)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout)
@@ -91,29 +96,36 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer)
 
-        self.pushButton_2 = QPushButton(self.centralwidget)
-        self.pushButton_2.setObjectName(u"pushButton_2")
+        self.GrajButton = QPushButton(self.menu)
+        self.GrajButton.setObjectName(u"GrajButton")
         sizePolicy3 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         sizePolicy3.setHorizontalStretch(0)
         sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.pushButton_2.sizePolicy().hasHeightForWidth())
-        self.pushButton_2.setSizePolicy(sizePolicy3)
-        self.pushButton_2.setMinimumSize(QSize(2, 2))
-        self.pushButton_2.setMaximumSize(QSize(500, 100))
-        self.pushButton_2.setBaseSize(QSize(200, 200))
-        self.pushButton_2.setFont(font1)
-        self.pushButton_2.setCursor(QCursor(Qt.PointingHandCursor))
-        self.pushButton_2.setAutoExclusive(False)
+        sizePolicy3.setHeightForWidth(self.GrajButton.sizePolicy().hasHeightForWidth())
+        self.GrajButton.setSizePolicy(sizePolicy3)
+        self.GrajButton.setMinimumSize(QSize(2, 2))
+        self.GrajButton.setMaximumSize(QSize(500, 100))
+        self.GrajButton.setBaseSize(QSize(200, 200))
+        self.GrajButton.setFont(font1)
+        self.GrajButton.setCursor(QCursor(Qt.PointingHandCursor))
+        self.GrajButton.setAutoExclusive(False)
 
-        self.horizontalLayout_2.addWidget(self.pushButton_2)
+        self.horizontalLayout_2.addWidget(self.GrajButton)
 
 
-        self.verticalLayout_2.addLayout(self.horizontalLayout_2)
+        self.verticalLayout_3.addLayout(self.horizontalLayout_2)
+
+        self.plansze.addWidget(self.menu)
+        self.gra = QWidget()
+        self.gra.setObjectName(u"gra")
+        self.plansze.addWidget(self.gra)
+
+        self.verticalLayout_2.addWidget(self.plansze)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 911, 20))
+        self.menubar.setGeometry(QRect(0, 0, 1051, 20))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -121,15 +133,18 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
+        self.plansze.setCurrentIndex(0)
+
+
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Monopoly", None))
+        self.Logo.setText(QCoreApplication.translate("MainWindow", u"Monopoly", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Gracze", None))
         self.lineEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Wpisz imi\u0119 gracza", None))
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Dodaj gracza", None))
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Graj", None))
+        self.DodajGraczaButton.setText(QCoreApplication.translate("MainWindow", u"Dodaj gracza", None))
+        self.GrajButton.setText(QCoreApplication.translate("MainWindow", u"Graj", None))
     # retranslateUi
 

@@ -10,14 +10,18 @@ class MainWindow(QMainWindow):
         super().__init__(parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.ui.pushButton.clicked.connect(self.AddPlayer)
+        self.ui.DodajGraczaButton.clicked.connect(self.AddPlayer)
+        self.ui.GrajButton.clicked.connect(self.ClickedPlay)
         self.UsedNames = []
     
+    def ClickedPlay(self):
+        self.ui.plansze.setCurrentIndex(1)
+
     def _setupPlayersList(self, name):
-        self.ui.listWidget.addItem(name)
+        self.ui.ListaGraczy.addItem(name)
     
     def AddPlayer(self):
-        if self.ui.listWidget.count() < 6 and self.ui.lineEdit.text().strip() != "" and self.ui.lineEdit.text() not in self.UsedNames:
+        if self.ui.ListaGraczy.count() < 6 and self.ui.lineEdit.text().strip() != "" and self.ui.lineEdit.text() not in self.UsedNames:
             self._setupPlayersList(self.ui.lineEdit.text())
             self.UsedNames.append(self.ui.lineEdit.text())
 

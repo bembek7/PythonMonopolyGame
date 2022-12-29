@@ -14,13 +14,14 @@ class MainWindow(QMainWindow):
         self.ui.plansze.setCurrentIndex(0)
         self.ui.DodajGraczaButton.clicked.connect(self.add_player)
         self.ui.GrajButton.clicked.connect(self.clicked_play)
-        self.ui.RzutButton.clicked.connect(self.roll_dice_result)
+        self.ui.RzutButton.clicked.connect(self.rolled)
         self._used_names = []
         self._game_instance = game
+        self._curr_player_index = 0
     
     def clicked_play(self):
         self.ui.plansze.setCurrentIndex(1)
-        self.play()
+        self.turn()
 
     def _setupPlayersList(self, name):
         self.ui.ListaGraczy.addItem(name)
@@ -30,6 +31,12 @@ class MainWindow(QMainWindow):
         self.ui.WynikRzutu.setText(str(result))
         return result
 
+    def rolled(self):
+        result = self.roll_dice_result()
+        self.ui.KupDomek.setEnabled(False)
+        self.ui.RzutButton.setEnabled(False)
+
+
     def add_player(self):
         if self.ui.ListaGraczy.count() < 6 and self.ui.lineEdit.text().strip() != "" and self.ui.lineEdit.text() not in self._used_names:
             self._setupPlayersList(self.ui.lineEdit.text())
@@ -37,9 +44,8 @@ class MainWindow(QMainWindow):
             self._game_instance.add_player(self.ui.lineEdit.text())
         self.ui.lineEdit.setText("")
 
-    def play(self):
-        for name in self._used_names:
-            self.ui.Tura.setText(f"Tura gracza : {name}")
+    def turn(self):
+        self.ui.Tura.setText(f"Tura gracza : {self._used_names[self._curr_player_index]}")
     #########
 
 def gui_main( game, args):

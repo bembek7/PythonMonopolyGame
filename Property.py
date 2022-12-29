@@ -29,6 +29,9 @@ class TypicalProperty(Property):
         self._apartments = 1 # 6 = hotel
         self._apartment_price = apartment_price
     
+    def get_color(self):
+        return self._color
+
     def buy_apartment(self):
         if(self._apartments <5):
             self._apartments += 1

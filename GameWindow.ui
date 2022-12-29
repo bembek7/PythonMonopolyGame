@@ -179,7 +179,7 @@
        </layout>
       </widget>
       <widget class="QWidget" name="gra">
-       <widget class="QLabel" name="tura">
+       <widget class="QLabel" name="Tura">
         <property name="geometry">
          <rect>
           <x>400</x>

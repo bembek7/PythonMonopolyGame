@@ -24,11 +24,10 @@ class PropertyField(Field):
             player.pay(self._property.charge())
 
 class ChanceField(Field):
-    def __init__(self, position, name="", possible_actions = []) -> None:
+    def __init__(self, position, name="") -> None:
         super().__init__(position, name)
-        self._possible_actions = possible_actions
-    def Action(self, player, action):
-        action(player)
+    def Action(self, player):
+        pass
 
 class PayField(Field):
     def __init__(self, position, name, amount_to_pay) -> None:

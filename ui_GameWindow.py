@@ -20,9 +20,10 @@ class Ui_MainWindow(object):
         MainWindow.resize(1204, 947)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
+        self.verticalLayout_2 = QVBoxLayout(self.centralwidget)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.plansze = QStackedWidget(self.centralwidget)
         self.plansze.setObjectName(u"plansze")
-        self.plansze.setGeometry(QRect(30, -10, 1170, 911))
         self.menu = QWidget()
         self.menu.setObjectName(u"menu")
         self.verticalLayout_3 = QVBoxLayout(self.menu)
@@ -1989,6 +1990,9 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.addLayout(self.gridLayout_2)
 
         self.plansze.addWidget(self.gra)
+
+        self.verticalLayout_2.addWidget(self.plansze)
+
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")

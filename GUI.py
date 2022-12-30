@@ -45,7 +45,7 @@ class MainWindow(QMainWindow):
         self.update_player_pos(old_pos, new_pos)
         self.perform_field_action(new_pos)
 
-    def perform_field_action(self, pos)
+    def perform_field_action(self, pos):
         pass
     ###
 

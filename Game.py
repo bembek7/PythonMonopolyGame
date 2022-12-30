@@ -4,13 +4,14 @@ from Player import Player
 class Game:
     def __init__(self, board) -> None:
         self._board = board
-        self._players = []
+        self.players = []
     
     def get_board_length(self):
         return self.get_board_length
     
     def add_player(self, name):
-        self._players.append(Player(name))
+        self.players.append(Player(name))
+
 
 
     

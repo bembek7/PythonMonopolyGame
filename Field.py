@@ -7,6 +7,9 @@ class Field:
         self._position = position
         self._name = name
 
+    def get_name(self):
+        return self._name
+
     def Action(self):
         pass
 
@@ -14,6 +17,9 @@ class PropertyField(Field):
     def __init__(self, position, property: Property) -> None:
         super().__init__(position, property.get_name())
         self._property = property
+
+    def get_property(self):
+        return self._property
 
     def Action(self, player: Player):
         if self._property.get_owner() != "":

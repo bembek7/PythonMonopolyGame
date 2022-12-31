@@ -3,7 +3,7 @@ from Player import Player
 
 class Game:
     def __init__(self, board) -> None:
-        self._board = board
+        self.board = board
         self.players = []
     
     def get_board_length(self):

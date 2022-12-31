@@ -5,6 +5,7 @@ from PySide2.QtWidgets import QApplication
 from Game import Game
 from PySide2 import QtCore
 from ui_GameWindow import Ui_MainWindow
+from Field import PropertyField
 
 class MainWindow(QMainWindow):
     def __init__(self, game, parent=None) -> None:
@@ -18,7 +19,32 @@ class MainWindow(QMainWindow):
         self._used_names = []
         self._game_instance = game
         self._curr_player_index = 0
+        self.set_names()
+        self.set_prices()
     
+    def set_prices(self):
+        for a in range(0, 40):
+            if isinstance(self._game_instance.board[a], PropertyField):
+                if a <= 9:
+                    self.ui.gridLayout_2.itemAtPosition(0,a).itemAt(4).widget().setText(str(self._game_instance.board[a].get_property().get_price()))
+                elif a <= 19:
+                    self.ui.gridLayout_2.itemAtPosition(a-10,10).itemAt(4).widget().setText(str(self._game_instance.board[a].get_property().get_price()))
+                elif a <= 29:
+                    self.ui.gridLayout_2.itemAtPosition(10,abs(a-30)).itemAt(4).widget().setText(str(self._game_instance.board[a].get_property().get_price()))
+                else:
+                    self.ui.gridLayout_2.itemAtPosition(abs(a-40),0).itemAt(4).widget().setText(str(self._game_instance.board[a].get_property().get_price()))
+    
+    def set_names(self):
+        for a in range(0, 40):
+            if a <= 9:
+                self.ui.gridLayout_2.itemAtPosition(0,a).itemAt(0).widget().setText(self._game_instance.board[a].get_name())
+            elif a <= 19:
+                self.ui.gridLayout_2.itemAtPosition(a-10,10).itemAt(0).widget().setText(self._game_instance.board[a].get_name())
+            elif a <= 29:
+                self.ui.gridLayout_2.itemAtPosition(10,abs(a-30)).itemAt(0).widget().setText(self._game_instance.board[a].get_name())
+            else:
+                self.ui.gridLayout_2.itemAtPosition(abs(a-40),0).itemAt(0).widget().setText(self._game_instance.board[a].get_name())
+
     def clicked_play(self):
         self.ui.plansze.setCurrentIndex(1)
         self.turn()
@@ -87,9 +113,12 @@ class MainWindow(QMainWindow):
                 delete = list.row(item)
                 list.takeItem(delete)
 
+    def end_turn(self):
+        self._curr_player_index = (self._curr_player_index + 1) % len(self._used_names)
+
 def gui_main( game, args):
     app = QApplication(args)
     window = MainWindow(game)
 
-    window.show()
+    window.showMaximized()
     return app.exec_()

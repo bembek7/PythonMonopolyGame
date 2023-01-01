@@ -5,6 +5,16 @@ class Property:
         self._basic_charge = basic_charge
         self._owner = ""
         self._price = price
+        self._active = True
+
+    def inactive(self):
+        self._active = False
+
+    def activate(self):
+        self._active = True
+
+    def __str__(self) -> str:
+        return self._name
 
     def get_owner(self):
         return self._owner

@@ -1,4 +1,5 @@
 from Property import Property
+from Property import TypicalProperty
 # pieniądze
 # lista posiadlosci
 class Player:
@@ -19,6 +20,12 @@ class Player:
             "dark blue" : 0
         }
 
+    def get_properties(self):
+        return self._properties
+
+    def get_cash(self):
+        return self._cash
+
     def get_position(self):
         return self._position
 
@@ -33,6 +40,9 @@ class Player:
 
     def get_name(self):
         return self._name
+
+    def gain(self, amount):
+        self._cash += amount
 
     def pay(self, amount):
         if self._cash - amount >= 0:
@@ -49,7 +59,8 @@ class Player:
 
     def buy_property(self, property : Property):
         self._properties.append(property)
-        self._dir_of_colors[property.get_color()] += 1
+        if isinstance(property, TypicalProperty):
+            self._dir_of_colors[property.get_color()] += 1
         self.pay(property.get_price())
 
     def move(self, result):

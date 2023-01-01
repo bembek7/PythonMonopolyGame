@@ -13,6 +13,9 @@ class Field:
     def Action(self):
         pass
 
+    def can_buy(self, player: Player):
+        return False
+
 class PropertyField(Field):
     def __init__(self, position, property: Property) -> None:
         super().__init__(position, property.get_name())
@@ -21,13 +24,21 @@ class PropertyField(Field):
     def get_property(self):
         return self._property
 
-    def Action(self, player: Player):
-        if self._property.get_owner() != "":
-            if player.pay(self._property.get_price()):
-                player.buy_property(self._property)
-                self._property.set_owner(player.get_name())
+    def can_buy(self, player: Player):
+        if self._property.get_owner() == "":
+            return player.get_cash() >= self._property.get_price()
         else:
+            return False
+
+    def Action(self, player: Player):
+        if self._property.get_owner() != "" and self._property.get_owner() != player.get_name():
             player.pay(self._property.charge())
+            player.gain(self._property.charge())
+
+    def buy(self, player: Player):
+        player.buy_property(self._property)
+        self._property.set_owner(player.get_name())
+            
 
 class ChanceField(Field):
     def __init__(self, position, name="") -> None:

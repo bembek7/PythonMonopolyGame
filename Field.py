@@ -38,7 +38,7 @@ class PropertyField(Field):
 
     def buy(self, player: Player):
         player.buy_property(self._property)
-        self._property.set_owner(player.get_name())
+        self._property.set_owner(player)
 
 
 class ChanceField(Field):

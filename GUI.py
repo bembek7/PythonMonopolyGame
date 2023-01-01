@@ -20,6 +20,7 @@ class MainWindow(QMainWindow):
         self.ui.ZastawButton.clicked.connect(self.deactivate_property)
         self.ui.KupDomekButton.clicked.connect(self.buying_apartment)
         self.ui.ZastawButton.setEnabled(True)
+        self.ui.GrajButton.setEnabled(False)
         self._used_names = []
         self._game_instance = game
         self._board = self._game_instance.board
@@ -35,9 +36,11 @@ class MainWindow(QMainWindow):
         pass
 
     def deactivate_property(self):
-        if self.ui.ListaPosiadlosci.currentItem() is not None:
-            property_name = self.ui.ListaPosiadlosci.currentItem().text()
-            self._curr_player.deactivate_property(property_name)
+        if self.ui.ListaGraczyGra.currentItem() is not None:
+            if self.ui.ListaGraczyGra.currentItem().text() == self._curr_player.get_name():
+                if self.ui.ListaPosiadlosci.currentItem() is not None:
+                    property_name = self.ui.ListaPosiadlosci.currentItem().text()
+                    self._curr_player.deactivate_property(property_name)
 
     def show_player(self, item):
         for player in self._game_instance.players:
@@ -113,7 +116,11 @@ class MainWindow(QMainWindow):
         self.ui.KoniecTuryButton.setEnabled(True)
 
     def go_to_jail(self):
-        pass
+        old_pos = self._curr_player.get_position()
+        self._curr_player.move(20)
+        new_pos = self._curr_player.get_position()
+        self.update_player_pos(old_pos, new_pos)
+        self._curr_player.pay(200)
     ###
 
 # 0-9 0,pos | 10-19 pos-10,10 | 20-29 10,abs(pos-30) | 30-39  abs(pos-40),0
@@ -126,7 +133,7 @@ class MainWindow(QMainWindow):
         elif old_pos <= 29:
             self.deleteItem(self._curr_player.get_name(), self.ui.gridLayout_2.itemAtPosition(10, abs(old_pos-30)).itemAt(index).widget())
         else:
-            self.deleteItem(self._curr_playerr.get_name(), self.ui.gridLayout_2.itemAtPosition(abs(old_pos-40), 0).itemAt(index).widget())
+            self.deleteItem(self._curr_player.get_name(), self.ui.gridLayout_2.itemAtPosition(abs(old_pos-40), 0).itemAt(index).widget())
         if new_pos <= 9:
             self.ui.gridLayout_2.itemAtPosition(0, new_pos).itemAt(index).widget().addItem(self._curr_player.get_name())
         elif new_pos <= 19:
@@ -142,9 +149,12 @@ class MainWindow(QMainWindow):
             self._used_names.append(self.ui.lineEdit.text())
             self._game_instance.add_player(self.ui.lineEdit.text())
         self.ui.lineEdit.setText("")
+        if len(self._used_names) >= 2:
+            self.ui.GrajButton.setEnabled(True)
 
     def turn(self):
         self.ui.KoniecTuryButton.setEnabled(False)
+        self.ui.KupButton.setEnabled(False)
         self._curr_player = self._game_instance.players[self._curr_player_index]
         self.ui.Tura.setText(f"Tura gracza : {self._used_names[self._curr_player_index]}")
         self.ui.RzutButton.setEnabled(True)

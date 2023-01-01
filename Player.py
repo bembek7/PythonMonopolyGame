@@ -1,5 +1,6 @@
 from Property import Property
 from Property import TypicalProperty
+from Property import SpecialProperty
 # pieniądze
 # lista posiadlosci
 
@@ -64,8 +65,9 @@ class Player:
     def get_amount_of_type(self, type):
         result = 0
         for property in self._properties:
-            if property.get_type() == type:
-                result += 1
+            if isinstance(property, SpecialProperty):
+                if property.get_type() == type:
+                    result += 1
         return result
 
     def buy_property(self, property: Property):

@@ -71,7 +71,7 @@ class SpecialProperty(Property):
 class AirportProperty(SpecialProperty):
     def charge(self):
         if self._active:
-            owning_other = self._owner.get_amount_of_type()
+            owning_other = self._owner.get_amount_of_type(self._type)
             if owning_other == 3:
                 owning_other = 4
             elif owning_other == 4:

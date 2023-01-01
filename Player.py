@@ -2,6 +2,8 @@ from Property import Property
 from Property import TypicalProperty
 # pieniądze
 # lista posiadlosci
+
+
 class Player:
     def __init__(self, name) -> None:
         self._name = name
@@ -10,14 +12,14 @@ class Player:
         self._properties = []
         self._in_jail = False
         self._dir_of_colors = {
-            "brown" : 0,
-            "light blue" : 0,
-            "pink" : 0,
-            "orange" : 0,
-            "red" : 0,
-            "yellow" : 0,
-            "green" : 0,
-            "dark blue" : 0
+            "brown": 0,
+            "light blue": 0,
+            "pink": 0,
+            "orange": 0,
+            "red": 0,
+            "yellow": 0,
+            "green": 0,
+            "dark blue": 0
         }
 
     def get_properties(self):
@@ -31,7 +33,7 @@ class Player:
 
     def set_position(self, newposition):
         self._position = newposition
-    
+
     def get_in_jail(self):
         return self._in_jail
 
@@ -44,11 +46,20 @@ class Player:
     def gain(self, amount):
         self._cash += amount
 
+    def get_available_apartments():
+        pass
+
     def pay(self, amount):
         if self._cash - amount >= 0:
             self._cash = self._cash - amount
         return True
     # wymuszenie zastawu/sprzedaży
+
+    def deactivate_property(self, property_given):
+        for property in self._properties:
+            if property.get_name() == property_given and property.is_active():
+                property.deactivate()
+                self.gain(int(property.get_price() / 2))
 
     def get_amount_of_type(self, type):
         result = 0
@@ -57,7 +68,7 @@ class Player:
                 result += 1
         return result
 
-    def buy_property(self, property : Property):
+    def buy_property(self, property: Property):
         self._properties.append(property)
         if isinstance(property, TypicalProperty):
             self._dir_of_colors[property.get_color()] += 1
@@ -73,14 +84,14 @@ class Player:
 
     def can_buy_home(self):
         dir = {
-            "brown" : 2,
-            "light blue" : 3,
-            "pink" : 3,
-            "orange" : 3,
-            "red" : 3,
-            "yellow" : 3,
-            "green" : 3,
-            "dark blue" : 2
+            "brown": 2,
+            "light blue": 3,
+            "pink": 3,
+            "orange": 3,
+            "red": 3,
+            "yellow": 3,
+            "green": 3,
+            "dark blue": 2
         }
         for key in self._dir_of_colors:
             if self._dir_of_colors[key] == dir[key]:

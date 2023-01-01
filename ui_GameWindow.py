@@ -1813,10 +1813,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addLayout(self.pole_8, 0, 6, 1, 1)
 
-        self.Posiadlosci = QListWidget(self.gra)
-        self.Posiadlosci.setObjectName(u"Posiadlosci")
+        self.ListaPosiadlosci = QListWidget(self.gra)
+        self.ListaPosiadlosci.setObjectName(u"ListaPosiadlosci")
 
-        self.gridLayout_2.addWidget(self.Posiadlosci, 6, 3, 2, 1)
+        self.gridLayout_2.addWidget(self.ListaPosiadlosci, 6, 3, 2, 1)
 
         self.pole_35 = QVBoxLayout()
         self.pole_35.setSpacing(1)

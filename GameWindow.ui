@@ -4182,7 +4182,7 @@
            </layout>
           </item>
           <item row="6" column="3" rowspan="2">
-           <widget class="QListWidget" name="Posiadlosci"/>
+           <widget class="QListWidget" name="ListaPosiadlosci"/>
           </item>
           <item row="10" column="8">
            <layout class="QVBoxLayout" name="pole_35">

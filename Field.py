@@ -34,7 +34,7 @@ class PropertyField(Field):
     def Action(self, player: Player):
         if self._property.get_owner() != "" and self._property.get_owner() != player.get_name():
             player.pay(self._property.charge())
-            player.gain(self._property.charge())
+            self._property.get_owner().gain(self._property.charge())
 
     def buy(self, player: Player):
         player.buy_property(self._property)
@@ -60,5 +60,6 @@ class PayField(Field):
 
 class GoToJailField(Field):
     def Action(self, player: Player):
-        player.set_position(10)
-        player.set_in_jail(True)
+        pass
+        # player.set_position(10)
+        # player.set_in_jail(True)

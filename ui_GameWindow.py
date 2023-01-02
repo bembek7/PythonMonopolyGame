@@ -1078,15 +1078,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addLayout(self.pole_25, 8, 0, 1, 1)
 
-        self.KupDomekButton = QPushButton(self.gra)
-        self.KupDomekButton.setObjectName(u"KupDomekButton")
-        self.KupDomekButton.setEnabled(False)
-        sizePolicy5.setHeightForWidth(self.KupDomekButton.sizePolicy().hasHeightForWidth())
-        self.KupDomekButton.setSizePolicy(sizePolicy5)
-        self.KupDomekButton.setFont(font)
-
-        self.gridLayout_2.addWidget(self.KupDomekButton, 3, 8, 1, 1)
-
         self.pole_11 = QVBoxLayout()
         self.pole_11.setSpacing(1)
         self.pole_11.setObjectName(u"pole_11")
@@ -2151,6 +2142,20 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.Tura, 2, 4, 1, 1)
 
+        self.KupDomekButton = QPushButton(self.gra)
+        self.KupDomekButton.setObjectName(u"KupDomekButton")
+        self.KupDomekButton.setEnabled(False)
+        sizePolicy5.setHeightForWidth(self.KupDomekButton.sizePolicy().hasHeightForWidth())
+        self.KupDomekButton.setSizePolicy(sizePolicy5)
+        self.KupDomekButton.setFont(font)
+
+        self.gridLayout_2.addWidget(self.KupDomekButton, 2, 8, 1, 1)
+
+        self.ListaKupienia = QListWidget(self.gra)
+        self.ListaKupienia.setObjectName(u"ListaKupienia")
+
+        self.gridLayout_2.addWidget(self.ListaKupienia, 2, 7, 2, 1)
+
 
         self.verticalLayout_4.addLayout(self.gridLayout_2)
 
@@ -2255,7 +2260,6 @@ class Ui_MainWindow(object):
         self.label_50.setText("")
         self.label_51.setText("")
         self.cena_25.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.KupDomekButton.setText(QCoreApplication.translate("MainWindow", u"Kup domek", None))
         self.nazwa_11.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.label_49.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
@@ -2340,5 +2344,6 @@ class Ui_MainWindow(object):
         self.KupButton.setText(QCoreApplication.translate("MainWindow", u"Kup", None))
         self.KoniecTuryButton.setText(QCoreApplication.translate("MainWindow", u"Koniec tury", None))
         self.Tura.setText(QCoreApplication.translate("MainWindow", u"Tura gracza: ", None))
+        self.KupDomekButton.setText(QCoreApplication.translate("MainWindow", u"Kup domek", None))
     # retranslateUi
 

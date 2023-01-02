@@ -2,6 +2,7 @@ from PySide2.QtWidgets import QMainWindow
 from Dice import basic_roll
 from PySide2.QtWidgets import QApplication
 from PySide2 import QtCore
+from Property import TypicalProperty
 from ui_GameWindow import Ui_MainWindow
 from Field import PropertyField
 
@@ -28,12 +29,27 @@ class MainWindow(QMainWindow):
         self.ui.ListaGraczyGra.itemClicked.connect(self.show_player)
         self.set_names()
         self.set_prices()
+        self.set_apartments()
 
     def buying_apartment(self):
-        pass
+        if self.ui.ListaKupienia.currentItem() is not None:
+            property_name = self.ui.ListaKupienia.currentItem().text()
+            for field in self._board:
+                if isinstance(field, PropertyField):
+                    property = field.get_property()
+                    if isinstance(property, TypicalProperty):
+                        if property.get_name() == property_name:
+                            self._curr_player.buy_apartment(property)
+                            break
+            self.set_apartments()
+            self.show_available_apartments()
 
     def show_available_apartments(self):
-        pass
+        self.ui.ListaKupienia.clear()
+        properties = self._curr_player.get_available_apartments()
+        for property in properties:
+            self.ui.ListaKupienia.addItem(property.get_name())
+        self.ui.KupDomekButton.setEnabled(len(properties) > 0)
 
     def deactivate_property(self):
         if self.ui.ListaGraczyGra.currentItem() is not None:
@@ -51,17 +67,36 @@ class MainWindow(QMainWindow):
                     self.ui.ListaPosiadlosci.addItem(str(property))
                 break
 
+    def set_apartments(self):
+        for a in range(0, 40):
+            if isinstance(self._board[a], PropertyField):
+                property = self._board[a].get_property()
+                if isinstance(property, TypicalProperty):
+                    if property.get_apartments_nr() < 5:
+                        string = f"Liczba domków : {property.get_apartments_nr()}"
+                    else:
+                        string = "Hotel"
+                    if a <= 9:
+                        self.ui.gridLayout_2.itemAtPosition(0, a).itemAt(2).widget().setText(string)
+                    elif a <= 19:
+                        self.ui.gridLayout_2.itemAtPosition(a-10, 10).itemAt(2).widget().setText(string)
+                    elif a <= 29:
+                        self.ui.gridLayout_2.itemAtPosition(10, abs(a-30)).itemAt(2).widget().setText(string)
+                    else:
+                        self.ui.gridLayout_2.itemAtPosition(abs(a-40), 0).itemAt(2).widget().setText(string)
+
     def set_prices(self):
         for a in range(0, 40):
-            if isinstance(self._game_instance.board[a], PropertyField):
+            if isinstance(self._board[a], PropertyField):
+                property = self._board[a].get_property()
                 if a <= 9:
-                    self.ui.gridLayout_2.itemAtPosition(0, a).itemAt(4).widget().setText(str(self._board[a].get_property().get_price()))
+                    self.ui.gridLayout_2.itemAtPosition(0, a).itemAt(4).widget().setText(str(property.get_price()))
                 elif a <= 19:
-                    self.ui.gridLayout_2.itemAtPosition(a-10, 10).itemAt(4).widget().setText(str(self._board[a].get_property().get_price()))
+                    self.ui.gridLayout_2.itemAtPosition(a-10, 10).itemAt(4).widget().setText(str(property.get_price()))
                 elif a <= 29:
-                    self.ui.gridLayout_2.itemAtPosition(10, abs(a-30)).itemAt(4).widget().setText(str(self._board[a].get_property().get_price()))
+                    self.ui.gridLayout_2.itemAtPosition(10, abs(a-30)).itemAt(4).widget().setText(str(property.get_price()))
                 else:
-                    self.ui.gridLayout_2.itemAtPosition(abs(a-40), 0).itemAt(4).widget().setText(str(self._board[a].get_property().get_price()))
+                    self.ui.gridLayout_2.itemAtPosition(abs(a-40), 0).itemAt(4).widget().setText(str(property.get_price()))
 
     def set_names(self):
         for a in range(0, 40):
@@ -95,7 +130,8 @@ class MainWindow(QMainWindow):
         return result
 
     def rolled(self):
-        result = self.roll_dice_result()
+        # result = self.roll_dice_result()
+        result = 1
         self.ui.KupDomekButton.setEnabled(False)
         self.ui.RzutButton.setEnabled(False)
         old_pos = self._curr_player.get_position()
@@ -110,8 +146,8 @@ class MainWindow(QMainWindow):
 
     def perform_field_action(self, pos):
         self._board[pos].Action(self._curr_player)
-        if pos == 30:
-            self.go_to_jail()
+        # if pos == 30:
+        #     self.go_to_jail()
         self.check_buying()
         self.ui.KoniecTuryButton.setEnabled(True)
 
@@ -153,10 +189,11 @@ class MainWindow(QMainWindow):
             self.ui.GrajButton.setEnabled(True)
 
     def turn(self):
+        self._curr_player = self._game_instance.players[self._curr_player_index]
+        self.ui.Tura.setText(f"Tura gracza : {self._curr_player.get_name()}")
         self.ui.KoniecTuryButton.setEnabled(False)
         self.ui.KupButton.setEnabled(False)
-        self._curr_player = self._game_instance.players[self._curr_player_index]
-        self.ui.Tura.setText(f"Tura gracza : {self._used_names[self._curr_player_index]}")
+        self.show_available_apartments()
         self.ui.RzutButton.setEnabled(True)
 
     #########

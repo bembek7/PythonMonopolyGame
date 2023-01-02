@@ -44,10 +44,12 @@ class TypicalProperty(Property):
     def get_color(self):
         return self._color
 
-    def buy_apartment(self):
-        if self._apartments < 5:
+    def get_apartment(self):
+        if self._apartments < 6:
             self._apartments += 1
-        # dodanie bloku na rushowanie jednego pola
+
+    def get_apartments_nr(self):
+        return self._apartments - 1
 
     def get_apartment_price(self):
         return self._apartment_price

@@ -22,6 +22,16 @@ class Player:
             "green": 0,
             "dark blue": 0
         }
+        self._dir_of_colors_needed = {
+            "brown": 2,
+            "light blue": 3,
+            "pink": 3,
+            "orange": 3,
+            "red": 3,
+            "yellow": 3,
+            "green": 3,
+            "dark blue": 2
+        }
 
     def get_properties(self):
         return self._properties
@@ -47,14 +57,41 @@ class Player:
     def gain(self, amount):
         self._cash += amount
 
-    def get_available_apartments():
-        pass
+    def get_available_apartments(self):
+        available_apartments = []
+        if self.can_buy_apartment():
+            for property in self._properties:
+                if property.is_active():
+                    if isinstance(property, TypicalProperty):
+                        if property.get_apartments_nr() < 5:
+                            color = property.get_color()
+                            apartments_nr = property.get_apartments_nr()
+                            if self.can_apartment_property(color, apartments_nr):
+                                available_apartments.append(property)
+        return available_apartments
+
+    def can_apartment_property(self, color, apartments_nr):
+        other = 0
+        for property in self._properties:
+            if isinstance(property, TypicalProperty):
+                if property.is_active():
+                    if property.get_color() == color:
+                        if property.get_apartments_nr() >= apartments_nr:
+                            other += 1
+        return other == self._dir_of_colors_needed[color]
 
     def pay(self, amount):
         if self._cash - amount >= 0:
-            self._cash = self._cash - amount
+            self._cash -= amount
         return True
     # wymuszenie zastawu/sprzedaży
+
+    def buy_apartment(self, property):
+        self.pay(property.get_apartment_price())
+        property.get_apartment()
+
+    def get_available_deactivations(self):
+        pass
 
     def deactivate_property(self, property_given):
         for property in self._properties:
@@ -84,18 +121,8 @@ class Player:
             self._position = board_places + self._position + result
         self._position = (self._position + result) % board_places
 
-    def can_buy_home(self):
-        dir = {
-            "brown": 2,
-            "light blue": 3,
-            "pink": 3,
-            "orange": 3,
-            "red": 3,
-            "yellow": 3,
-            "green": 3,
-            "dark blue": 2
-        }
+    def can_buy_apartment(self):
         for key in self._dir_of_colors:
-            if self._dir_of_colors[key] == dir[key]:
+            if self._dir_of_colors[key] == self._dir_of_colors_needed[key]:
                 return True
             return False

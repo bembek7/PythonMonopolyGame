@@ -57,6 +57,17 @@ class Player:
     def gain(self, amount):
         self._cash += amount
 
+    def get_sellable_apartments(self):
+        sellable_apartments = []
+        for property in self._properties:
+            if isinstance(property, TypicalProperty):
+                if property.get_apartments_nr() > 0:
+                    color = property.get_color()
+                    apartments_nr = property.get_apartments_nr()
+                    if self.can_sell_apartment_on_property(color, apartments_nr):
+                        sellable_apartments.append(property)
+        return sellable_apartments
+
     def get_available_apartments(self):
         available_apartments = []
         if self.can_buy_apartment():
@@ -69,6 +80,16 @@ class Player:
                             if self.can_apartment_property(color, apartments_nr):
                                 available_apartments.append(property)
         return available_apartments
+
+    def can_sell_apartment_on_property(self, color, apartments_nr):
+        other = 0
+        for property in self._properties:
+            if isinstance(property, TypicalProperty):
+                if property.is_active():
+                    if property.get_color() == color:
+                        if property.get_apartments_nr() <= apartments_nr:
+                            other += 1
+        return other == self._dir_of_colors_needed[color]
 
     def can_apartment_property(self, color, apartments_nr):
         other = 0
@@ -89,6 +110,10 @@ class Player:
     def buy_apartment(self, property):
         self.pay(property.get_apartment_price())
         property.get_apartment()
+
+    def sell_apartment(self, property):
+        self.gain(int(property.get_apartment_price())/2)
+        property.lose_apartment()
 
     def get_available_deactivations(self):
         pass

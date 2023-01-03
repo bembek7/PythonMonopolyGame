@@ -48,6 +48,10 @@ class TypicalProperty(Property):
         if self._apartments < 6:
             self._apartments += 1
 
+    def lose_apartment(self):
+        if self._apartments > 1:
+            self._apartments -= 1
+
     def get_apartments_nr(self):
         return self._apartments - 1
 

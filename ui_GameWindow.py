@@ -398,6 +398,7 @@ class Ui_MainWindow(object):
         font3 = QFont()
         font3.setPointSize(15)
         self.label_7.setFont(font3)
+        self.label_7.setAlignment(Qt.AlignCenter)
 
         self.gridLayout_2.addWidget(self.label_7, 5, 3, 1, 1)
 
@@ -1216,9 +1217,11 @@ class Ui_MainWindow(object):
 
         self.PieniadzeLabel = QLabel(self.gra)
         self.PieniadzeLabel.setObjectName(u"PieniadzeLabel")
+        self.PieniadzeLabel.setBaseSize(QSize(0, 0))
         font4 = QFont()
         font4.setPointSize(20)
         self.PieniadzeLabel.setFont(font4)
+        self.PieniadzeLabel.setAlignment(Qt.AlignCenter)
 
         self.gridLayout_2.addWidget(self.PieniadzeLabel, 3, 3, 1, 1)
 
@@ -1447,15 +1450,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addLayout(self.pole_23, 7, 0, 1, 1)
 
-        self.RzutButton = QPushButton(self.gra)
-        self.RzutButton.setObjectName(u"RzutButton")
-        sizePolicy5.setHeightForWidth(self.RzutButton.sizePolicy().hasHeightForWidth())
-        self.RzutButton.setSizePolicy(sizePolicy5)
-        self.RzutButton.setFont(font)
-        self.RzutButton.setCursor(QCursor(Qt.PointingHandCursor))
-
-        self.gridLayout_2.addWidget(self.RzutButton, 4, 8, 1, 1)
-
         self.pole_15 = QVBoxLayout()
         self.pole_15.setSpacing(1)
         self.pole_15.setObjectName(u"pole_15")
@@ -1506,11 +1500,6 @@ class Ui_MainWindow(object):
 
 
         self.gridLayout_2.addLayout(self.pole_15, 2, 10, 1, 1)
-
-        self.ListaGraczyGra = QListWidget(self.gra)
-        self.ListaGraczyGra.setObjectName(u"ListaGraczyGra")
-
-        self.gridLayout_2.addWidget(self.ListaGraczyGra, 3, 2, 4, 1)
 
         self.pole_24 = QVBoxLayout()
         self.pole_24.setSpacing(1)
@@ -1939,13 +1928,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addLayout(self.pole_3, 0, 2, 1, 1)
 
-        self.WynikRzutu = QLabel(self.gra)
-        self.WynikRzutu.setObjectName(u"WynikRzutu")
-        self.WynikRzutu.setFont(font)
-        self.WynikRzutu.setCursor(QCursor(Qt.ArrowCursor))
-
-        self.gridLayout_2.addWidget(self.WynikRzutu, 5, 8, 1, 1)
-
         self.pole_13 = QVBoxLayout()
         self.pole_13.setSpacing(1)
         self.pole_13.setObjectName(u"pole_13")
@@ -2111,43 +2093,21 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.Pieniadze, 4, 3, 1, 1)
 
-        self.ZastawButton = QPushButton(self.gra)
-        self.ZastawButton.setObjectName(u"ZastawButton")
-        self.ZastawButton.setEnabled(False)
-        sizePolicy5.setHeightForWidth(self.ZastawButton.sizePolicy().hasHeightForWidth())
-        self.ZastawButton.setSizePolicy(sizePolicy5)
-        self.ZastawButton.setFont(font4)
-
-        self.gridLayout_2.addWidget(self.ZastawButton, 6, 4, 1, 1)
-
-        self.KupButton = QPushButton(self.gra)
-        self.KupButton.setObjectName(u"KupButton")
-        self.KupButton.setEnabled(False)
-        sizePolicy5.setHeightForWidth(self.KupButton.sizePolicy().hasHeightForWidth())
-        self.KupButton.setSizePolicy(sizePolicy5)
-
-        self.gridLayout_2.addWidget(self.KupButton, 6, 8, 1, 1)
-
         self.KoniecTuryButton = QPushButton(self.gra)
         self.KoniecTuryButton.setObjectName(u"KoniecTuryButton")
         self.KoniecTuryButton.setEnabled(False)
         sizePolicy5.setHeightForWidth(self.KoniecTuryButton.sizePolicy().hasHeightForWidth())
         self.KoniecTuryButton.setSizePolicy(sizePolicy5)
+        self.KoniecTuryButton.setFont(font3)
 
         self.gridLayout_2.addWidget(self.KoniecTuryButton, 8, 8, 1, 1)
-
-        self.Tura = QLabel(self.gra)
-        self.Tura.setObjectName(u"Tura")
-        self.Tura.setFont(font)
-
-        self.gridLayout_2.addWidget(self.Tura, 2, 4, 1, 1)
 
         self.KupDomekButton = QPushButton(self.gra)
         self.KupDomekButton.setObjectName(u"KupDomekButton")
         self.KupDomekButton.setEnabled(False)
         sizePolicy5.setHeightForWidth(self.KupDomekButton.sizePolicy().hasHeightForWidth())
         self.KupDomekButton.setSizePolicy(sizePolicy5)
-        self.KupDomekButton.setFont(font)
+        self.KupDomekButton.setFont(font3)
 
         self.gridLayout_2.addWidget(self.KupDomekButton, 2, 8, 1, 1)
 
@@ -2155,6 +2115,86 @@ class Ui_MainWindow(object):
         self.ListaKupienia.setObjectName(u"ListaKupienia")
 
         self.gridLayout_2.addWidget(self.ListaKupienia, 2, 7, 2, 1)
+
+        self.KupButton = QPushButton(self.gra)
+        self.KupButton.setObjectName(u"KupButton")
+        self.KupButton.setEnabled(False)
+        sizePolicy5.setHeightForWidth(self.KupButton.sizePolicy().hasHeightForWidth())
+        self.KupButton.setSizePolicy(sizePolicy5)
+        self.KupButton.setFont(font4)
+
+        self.gridLayout_2.addWidget(self.KupButton, 7, 8, 1, 1)
+
+        self.WynikRzutu = QLabel(self.gra)
+        self.WynikRzutu.setObjectName(u"WynikRzutu")
+        self.WynikRzutu.setFont(font)
+        self.WynikRzutu.setCursor(QCursor(Qt.ArrowCursor))
+
+        self.gridLayout_2.addWidget(self.WynikRzutu, 6, 9, 1, 1)
+
+        self.RzutButton = QPushButton(self.gra)
+        self.RzutButton.setObjectName(u"RzutButton")
+        sizePolicy5.setHeightForWidth(self.RzutButton.sizePolicy().hasHeightForWidth())
+        self.RzutButton.setSizePolicy(sizePolicy5)
+        self.RzutButton.setFont(font3)
+        self.RzutButton.setCursor(QCursor(Qt.PointingHandCursor))
+
+        self.gridLayout_2.addWidget(self.RzutButton, 6, 8, 1, 1)
+
+        self.ListaSprzedania = QListWidget(self.gra)
+        self.ListaSprzedania.setObjectName(u"ListaSprzedania")
+
+        self.gridLayout_2.addWidget(self.ListaSprzedania, 4, 7, 2, 1)
+
+        self.SprzedajDomekButton = QPushButton(self.gra)
+        self.SprzedajDomekButton.setObjectName(u"SprzedajDomekButton")
+        self.SprzedajDomekButton.setEnabled(False)
+        sizePolicy5.setHeightForWidth(self.SprzedajDomekButton.sizePolicy().hasHeightForWidth())
+        self.SprzedajDomekButton.setSizePolicy(sizePolicy5)
+        font5 = QFont()
+        font5.setPointSize(13)
+        self.SprzedajDomekButton.setFont(font5)
+
+        self.gridLayout_2.addWidget(self.SprzedajDomekButton, 4, 8, 1, 1)
+
+        self.Tura = QLabel(self.gra)
+        self.Tura.setObjectName(u"Tura")
+        self.Tura.setFont(font)
+
+        self.gridLayout_2.addWidget(self.Tura, 2, 5, 1, 1)
+
+        self.ZastawButton = QPushButton(self.gra)
+        self.ZastawButton.setObjectName(u"ZastawButton")
+        self.ZastawButton.setEnabled(False)
+        sizePolicy5.setHeightForWidth(self.ZastawButton.sizePolicy().hasHeightForWidth())
+        self.ZastawButton.setSizePolicy(sizePolicy5)
+        self.ZastawButton.setFont(font4)
+
+        self.gridLayout_2.addWidget(self.ZastawButton, 4, 6, 1, 1)
+
+        self.WykupButton = QPushButton(self.gra)
+        self.WykupButton.setObjectName(u"WykupButton")
+        self.WykupButton.setEnabled(False)
+        sizePolicy5.setHeightForWidth(self.WykupButton.sizePolicy().hasHeightForWidth())
+        self.WykupButton.setSizePolicy(sizePolicy5)
+        self.WykupButton.setFont(font4)
+
+        self.gridLayout_2.addWidget(self.WykupButton, 6, 6, 1, 1)
+
+        self.ListaWykup = QListWidget(self.gra)
+        self.ListaWykup.setObjectName(u"ListaWykup")
+
+        self.gridLayout_2.addWidget(self.ListaWykup, 6, 5, 2, 1)
+
+        self.LisatZastaw = QListWidget(self.gra)
+        self.LisatZastaw.setObjectName(u"LisatZastaw")
+
+        self.gridLayout_2.addWidget(self.LisatZastaw, 4, 5, 2, 1)
+
+        self.ListaGraczyGra = QListWidget(self.gra)
+        self.ListaGraczyGra.setObjectName(u"ListaGraczyGra")
+
+        self.gridLayout_2.addWidget(self.ListaGraczyGra, 3, 2, 2, 1)
 
 
         self.verticalLayout_4.addLayout(self.gridLayout_2)
@@ -2289,7 +2329,6 @@ class Ui_MainWindow(object):
         self.nazwa_23.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.label_46.setText("")
         self.label_47.setText("")
-        self.RzutButton.setText(QCoreApplication.translate("MainWindow", u"Rzu\u0107 kostk\u0105", None))
         self.nazwa_15.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.label_30.setText("")
         self.label_31.setText("")
@@ -2326,7 +2365,6 @@ class Ui_MainWindow(object):
         self.nazwa_3.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.label_6.setText("")
         self.cena_3.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.WynikRzutu.setText("")
         self.nazwa_13.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.label_26.setText("")
         self.label_27.setText("")
@@ -2340,10 +2378,14 @@ class Ui_MainWindow(object):
         self.label_59.setText("")
         self.cena_29.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.Pieniadze.setText("")
-        self.ZastawButton.setText(QCoreApplication.translate("MainWindow", u"Zastaw", None))
-        self.KupButton.setText(QCoreApplication.translate("MainWindow", u"Kup", None))
         self.KoniecTuryButton.setText(QCoreApplication.translate("MainWindow", u"Koniec tury", None))
-        self.Tura.setText(QCoreApplication.translate("MainWindow", u"Tura gracza: ", None))
         self.KupDomekButton.setText(QCoreApplication.translate("MainWindow", u"Kup domek", None))
+        self.KupButton.setText(QCoreApplication.translate("MainWindow", u"Kup", None))
+        self.WynikRzutu.setText("")
+        self.RzutButton.setText(QCoreApplication.translate("MainWindow", u"Rzu\u0107 kostk\u0105", None))
+        self.SprzedajDomekButton.setText(QCoreApplication.translate("MainWindow", u"Sprzedaj domek", None))
+        self.Tura.setText(QCoreApplication.translate("MainWindow", u"Tura gracza: ", None))
+        self.ZastawButton.setText(QCoreApplication.translate("MainWindow", u"Zastaw", None))
+        self.WykupButton.setText(QCoreApplication.translate("MainWindow", u"Wykup", None))
     # retranslateUi
 

@@ -2186,10 +2186,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.ListaWykup, 6, 5, 2, 1)
 
-        self.LisatZastaw = QListWidget(self.gra)
-        self.LisatZastaw.setObjectName(u"LisatZastaw")
+        self.ListaZastaw = QListWidget(self.gra)
+        self.ListaZastaw.setObjectName(u"ListaZastaw")
 
-        self.gridLayout_2.addWidget(self.LisatZastaw, 4, 5, 2, 1)
+        self.gridLayout_2.addWidget(self.ListaZastaw, 4, 5, 2, 1)
 
         self.ListaGraczyGra = QListWidget(self.gra)
         self.ListaGraczyGra.setObjectName(u"ListaGraczyGra")

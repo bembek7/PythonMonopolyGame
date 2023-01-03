@@ -59,11 +59,29 @@ class Player:
 
     def get_activable_properties(self):
         activable_apartments = []
+        for property in self._properties:
+            if not property.is_active():
+                activable_apartments.append(property)
         return activable_apartments
 
     def get_deactivable_properties(self):
         deactivable_apartments = []
+        for property in self._properties:
+            if property.is_active():
+                if not isinstance(property, TypicalProperty):
+                    deactivable_apartments.append(property)
+                elif property.get_apartments_nr() == 0:
+                    color = property.get_color()
+                    if self.check_other_apartments(color):
+                        deactivable_apartments.append(property)
         return deactivable_apartments
+
+    def check_other_apartments(self, color):
+        for property in self._properties:
+            if isinstance(property, TypicalProperty):
+                if property.get_color() == color and property.get_apartments_nr() > 0:
+                    return False
+        return True
 
     def get_sellable_apartments(self):
         sellable_apartments = []
@@ -123,14 +141,15 @@ class Player:
         self.gain(int(property.get_apartment_price())/2)
         property.lose_apartment()
 
-    def get_available_deactivations(self):
-        pass
+    def deactivate_property(self, property):
+        if property.is_active():
+            property.deactivate()
+            self.gain(int(property.get_price() / 2))
 
-    def deactivate_property(self, property_given):
-        for property in self._properties:
-            if property.get_name() == property_given and property.is_active():
-                property.deactivate()
-                self.gain(int(property.get_price() / 2))
+    def activate_property(self, property):
+        if not property.is_active():
+            property.activate()
+            self.pay(int(property.get_price() / 2 + property.get_price() / 10))
 
     def get_amount_of_type(self, type):
         result = 0

@@ -43,8 +43,8 @@ class MainWindow(QMainWindow):
                     if isinstance(property, TypicalProperty):
                         if property.get_name() == property_name:
                             self._curr_player.sell_apartment(property)
+                            self.update_lists()
                             break
-            self.update_lists()
 
     def buying_apartment(self):
         if self.ui.ListaKupienia.currentItem() is not None:
@@ -55,14 +55,30 @@ class MainWindow(QMainWindow):
                     if isinstance(property, TypicalProperty):
                         if property.get_name() == property_name:
                             self._curr_player.buy_apartment(property)
+                            self.update_lists()
                             break
-            self.update_lists()
 
     def deactivating_property(self):
-        pass
+        if self.ui.ListaZastaw.currentItem() is not None:
+            property_name = self.ui.ListaZastaw.currentItem().text()
+            for field in self._board:
+                if isinstance(field, PropertyField):
+                    property = field.get_property()
+                    if property.get_name() == property_name:
+                        self._curr_player.deactivate_property(property)
+                        self.update_lists()
+                        break
 
     def activating_property(self):
-        pass
+        if self.ui.ListaWykup.currentItem() is not None:
+            property_name = self.ui.ListaWykup.currentItem().text()
+            for field in self._board:
+                if isinstance(field, PropertyField):
+                    property = field.get_property()
+                    if property.get_name() == property_name:
+                        self._curr_player.activate_property(property)
+                        self.update_lists()
+                        break
 
     def show_list_widget(self, list_widget, properties, button):
         list_widget.clear()
@@ -87,10 +103,10 @@ class MainWindow(QMainWindow):
         self.show_list_widget(self.ui.ListaKupienia, self._curr_player.get_available_apartments(), self.ui.KupDomekButton)
 
     def show_deactivable_properties(self):
-        self.show_list_widget(self.ui.ListaWykup, self._curr_player.get_deactivable_properties(), self.ui.WykupButton)
+        self.show_list_widget(self.ui.ListaZastaw, self._curr_player.get_deactivable_properties(), self.ui.ZastawButton)
 
     def show_activable_properties(self):
-        self.show_list_widget(self.ui.LisatZastaw, self._curr_player.get_activable_properties(), self.ui.ZastawButton)
+        self.show_list_widget(self.ui.ListaWykup, self._curr_player.get_activable_properties(), self.ui.WykupButton)
 
     # def deactivate_property(self):
     #     if self.ui.ListaGraczyGra.currentItem() is not None:

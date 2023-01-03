@@ -88,13 +88,13 @@ class AirportProperty(SpecialProperty):
 
 
 class DiceChargeProperty(SpecialProperty):
-    def charge(self, dice_result):
-        if self._active:
-            owning_other = self._owner.get_amount_of_type()
-            if owning_other == 2:
-                charge = self._basic_charge * dice_result
-            else:
-                charge = round(self._basic_charge * dice_result / 2)
-            return charge
-        else:
-            return 0
+    # def charge(self, dice_result):
+    #     if self._active:
+    #         owning_other = self._owner.get_amount_of_type()
+    #         if owning_other == 2:
+    #             charge = self._basic_charge * dice_result
+    #         else:
+    #             charge = round(self._basic_charge * dice_result / 2)
+    #         return charge
+    #     else:
+    #         return 0

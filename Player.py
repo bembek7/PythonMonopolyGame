@@ -55,7 +55,15 @@ class Player:
         return self._name
 
     def gain(self, amount):
-        self._cash += amount
+        self._cash = int(self._cash + amount)
+
+    def get_activable_properties(self):
+        activable_apartments = []
+        return activable_apartments
+
+    def get_deactivable_properties(self):
+        deactivable_apartments = []
+        return deactivable_apartments
 
     def get_sellable_apartments(self):
         sellable_apartments = []
@@ -103,12 +111,12 @@ class Player:
 
     def pay(self, amount):
         if self._cash - amount >= 0:
-            self._cash -= amount
+            self._cash = int(self._cash - amount)
         return True
     # wymuszenie zastawu/sprzedaży
 
     def buy_apartment(self, property):
-        self.pay(property.get_apartment_price())
+        self.pay(int(property.get_apartment_price()))
         property.get_apartment()
 
     def sell_apartment(self, property):

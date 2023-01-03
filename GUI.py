@@ -29,6 +29,7 @@ class MainWindow(QMainWindow):
         self._board = self._game_instance.board
         self._curr_player_index = 0
         self.ui.ListaGraczyGra.itemClicked.connect(self.show_player)
+        self.already_rolled = False
         self.set_names()
         self.set_prices()
         self.set_properties()
@@ -43,10 +44,7 @@ class MainWindow(QMainWindow):
                         if property.get_name() == property_name:
                             self._curr_player.sell_apartment(property)
                             break
-            self.set_properties()
-            self.show_available_apartments()
-            self.show_sellable_apartments()
-            self.show_activable_properties()
+            self.update_lists()
 
     def buying_apartment(self):
         if self.ui.ListaKupienia.currentItem() is not None:
@@ -58,30 +56,7 @@ class MainWindow(QMainWindow):
                         if property.get_name() == property_name:
                             self._curr_player.buy_apartment(property)
                             break
-            self.set_properties()
-            self.show_available_apartments()
-            self.show_sellable_apartments()
-            self.show_deactivable_properties()
-
-    def show_list_widget(self, list_widget, properties, button):
-        list_widget.clear()
-        for property in properties:
-            list_widget.addItem(property.get_name())
-        button.setEnabled(len(properties) > 0)
-
-    def show_sellable_apartments(self):
-        self.ui.ListaSprzedania.clear()
-        properties = self._curr_player.get_sellable_apartments()
-        for property in properties:
-            self.ui.ListaSprzedania.addItem(property.get_name())
-        self.ui.SprzedajDomekButton.setEnabled(len(properties) > 0)
-
-    def show_available_apartments(self):
-        self.ui.ListaKupienia.clear()
-        properties = self._curr_player.get_available_apartments()
-        for property in properties:
-            self.ui.ListaKupienia.addItem(property.get_name())
-        self.ui.KupDomekButton.setEnabled(len(properties) > 0)
+            self.update_lists()
 
     def deactivating_property(self):
         pass
@@ -89,19 +64,33 @@ class MainWindow(QMainWindow):
     def activating_property(self):
         pass
 
-    def show_deactivable_properties(self):
-        self.ui.ListaWykup.clear()
-        properties = self._curr_player.get_activable_properties()
+    def show_list_widget(self, list_widget, properties, button):
+        list_widget.clear()
         for property in properties:
-            self.ui.ListaWykup.addItem(property.get_name())
-        self.ui.WykupButton.setEnabled(len(properties) > 0)
+            list_widget.addItem(property.get_name())
+        button.setEnabled(len(properties) > 0)
+
+    def update_lists(self):
+        self.show_deactivable_properties()
+        self.show_activable_properties()
+        self.show_available_apartments()
+        self.show_sellable_apartments()
+        self.set_properties()
+        self.show_player(self.ui.ListaGraczyGra.currentItem())
+        if self.already_rolled:
+            self.ui.KupDomekButton.setEnabled(False)
+
+    def show_sellable_apartments(self):
+        self.show_list_widget(self.ui.ListaSprzedania, self._curr_player.get_sellable_apartments(), self.ui.SprzedajDomekButton)
+
+    def show_available_apartments(self):
+        self.show_list_widget(self.ui.ListaKupienia, self._curr_player.get_available_apartments(), self.ui.KupDomekButton)
+
+    def show_deactivable_properties(self):
+        self.show_list_widget(self.ui.ListaWykup, self._curr_player.get_deactivable_properties(), self.ui.WykupButton)
 
     def show_activable_properties(self):
-        self.ui.ListaWykup.clear()
-        properties = self._curr_player.get_activable_properties()
-        for property in properties:
-            self.ui.ListaWykup.addItem(property.get_name())
-        self.ui.WykupButton.setEnabled(len(properties) > 0)
+        self.show_list_widget(self.ui.LisatZastaw, self._curr_player.get_activable_properties(), self.ui.ZastawButton)
 
     # def deactivate_property(self):
     #     if self.ui.ListaGraczyGra.currentItem() is not None:
@@ -111,13 +100,14 @@ class MainWindow(QMainWindow):
     #                 self._curr_player.deactivate_property(property_name)
 
     def show_player(self, item):
-        for player in self._game_instance.players:
-            if player.get_name() == item.text():
-                self.ui.Pieniadze.setText(str(player.get_cash()))
-                self.ui.ListaPosiadlosci.clear()
-                for property in player.get_properties():
-                    self.ui.ListaPosiadlosci.addItem(str(property))
-                break
+        if item is not None:
+            for player in self._game_instance.players:
+                if player.get_name() == item.text():
+                    self.ui.Pieniadze.setText(str(player.get_cash()))
+                    self.ui.ListaPosiadlosci.clear()
+                    for property in player.get_properties():
+                        self.ui.ListaPosiadlosci.addItem(str(property))
+                    break
 
     def set_properties(self):
         for a in range(0, 40):
@@ -173,8 +163,7 @@ class MainWindow(QMainWindow):
     def player_buys(self):
         self._board[self._curr_player.get_position()].buy(self._curr_player)
         self.ui.KupButton.setEnabled(False)
-        self.show_deactivable_properties()
-        self.show_available_apartments()
+        self.update_lists()
 
     def _setupPlayersList(self, name):
         self.ui.ListaGraczy.addItem(name)
@@ -187,6 +176,7 @@ class MainWindow(QMainWindow):
 
     def rolled(self):
         # result = self.roll_dice_result()
+        self.already_rolled = True
         result = 1
         self.ui.KupDomekButton.setEnabled(False)
         self.ui.RzutButton.setEnabled(False)
@@ -195,6 +185,7 @@ class MainWindow(QMainWindow):
         new_pos = self._curr_player.get_position()
         self.update_player_pos(old_pos, new_pos)
         self.perform_field_action(new_pos)
+        self.update_lists()
 
     def check_buying(self):
         if self._board[self._curr_player.get_position()].can_buy(self._curr_player):
@@ -249,8 +240,8 @@ class MainWindow(QMainWindow):
         self.ui.Tura.setText(f"Tura gracza : {self._curr_player.get_name()}")
         self.ui.KoniecTuryButton.setEnabled(False)
         self.ui.KupButton.setEnabled(False)
-        self.show_available_apartments()
         self.ui.RzutButton.setEnabled(True)
+        self.update_lists()
 
     #########
 
@@ -261,6 +252,7 @@ class MainWindow(QMainWindow):
 
     def end_turn(self):
         self._curr_player_index = (self._curr_player_index + 1) % len(self._used_names)
+        self.already_rolled = False
         self.turn()
 
 

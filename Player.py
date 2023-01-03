@@ -57,6 +57,12 @@ class Player:
     def gain(self, amount):
         self._cash = int(self._cash + amount)
 
+    def lose_property(self, property):
+        self._properties.remove(property)
+
+    def gain_property(self, property):
+        self._properties.append(property)
+
     def get_activable_properties(self):
         activable_apartments = []
         for property in self._properties:
@@ -131,7 +137,6 @@ class Player:
         if self._cash - amount >= 0:
             self._cash = int(self._cash - amount)
         return True
-    # wymuszenie zastawu/sprzedaży
 
     def buy_apartment(self, property):
         self.pay(int(property.get_apartment_price()))

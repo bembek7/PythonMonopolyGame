@@ -22,6 +22,7 @@ class MainWindow(QMainWindow):
         self.ui.WykupButton.clicked.connect(self.activating_property)
         self.ui.KupDomekButton.clicked.connect(self.buying_apartment)
         self.ui.SprzedajDomekButton.clicked.connect(self.selling_apartment)
+        self.ui.SprzedazButton.clicked.connect(self.selling_property)
         self.ui.ZastawButton.setEnabled(False)
         self.ui.GrajButton.setEnabled(False)
         self._used_names = []
@@ -33,6 +34,20 @@ class MainWindow(QMainWindow):
         self.set_names()
         self.set_prices()
         self.set_properties()
+
+    def selling_property(self):
+        self._game_instance.sell_property(self._curr_player, )
+
+    def update_properties_selling(self):
+        self.ui.ListaNaSprzedaz.clear()
+        for property in self._curr_player.get_properties():
+            self.ui.ListaNaSprzedaz.addItem(str(property))
+
+    def update_players_selling(self):
+        self.ui.ListaKomu.clear()
+        for player in self._game_instance.players:
+            if player.get_name() != self._curr_player.get_name():
+                self.ui.ListaKomu.addItem(player.get_name())
 
     def selling_apartment(self):
         if self.ui.ListaSprzedania.currentItem() is not None:
@@ -92,6 +107,8 @@ class MainWindow(QMainWindow):
         self.show_available_apartments()
         self.show_sellable_apartments()
         self.set_properties()
+        self.update_players_selling()
+        self.update_properties_selling()
         self.show_player(self.ui.ListaGraczyGra.currentItem())
         if self.already_rolled:
             self.ui.KupDomekButton.setEnabled(False)
@@ -107,13 +124,6 @@ class MainWindow(QMainWindow):
 
     def show_activable_properties(self):
         self.show_list_widget(self.ui.ListaWykup, self._curr_player.get_activable_properties(), self.ui.WykupButton)
-
-    # def deactivate_property(self):
-    #     if self.ui.ListaGraczyGra.currentItem() is not None:
-    #         if self.ui.ListaGraczyGra.currentItem().text() == self._curr_player.get_name():
-    #             if self.ui.ListaPosiadlosci.currentItem() is not None:
-    #                 property_name = self.ui.ListaPosiadlosci.currentItem().text()
-    #                 self._curr_player.deactivate_property(property_name)
 
     def show_player(self, item):
         if item is not None:
@@ -181,7 +191,7 @@ class MainWindow(QMainWindow):
         self.ui.KupButton.setEnabled(False)
         self.update_lists()
 
-    def _setupPlayersList(self, name):
+    def setupPlayersList(self, name):
         self.ui.ListaGraczy.addItem(name)
         self.ui.ListaGraczyGra.addItem(name)
 
@@ -244,12 +254,14 @@ class MainWindow(QMainWindow):
 
     def add_player(self):
         if self.ui.ListaGraczy.count() < 6 and self.ui.lineEdit.text().strip() != "" and self.ui.lineEdit.text() not in self._used_names:
-            self._setupPlayersList(self.ui.lineEdit.text())
+            self.setupPlayersList(self.ui.lineEdit.text())
             self._used_names.append(self.ui.lineEdit.text())
             self._game_instance.add_player(self.ui.lineEdit.text())
         self.ui.lineEdit.setText("")
         if len(self._used_names) >= 2:
             self.ui.GrajButton.setEnabled(True)
+        if len(self._used_names) == 6:
+            self.ui.DodajGraczaButton.setEnabled(False)
 
     def turn(self):
         self._curr_player = self._game_instance.players[self._curr_player_index]
@@ -257,6 +269,7 @@ class MainWindow(QMainWindow):
         self.ui.KoniecTuryButton.setEnabled(False)
         self.ui.KupButton.setEnabled(False)
         self.ui.RzutButton.setEnabled(True)
+        self.update_properties_selling
         self.update_lists()
 
     #########

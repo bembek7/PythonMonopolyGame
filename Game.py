@@ -1,6 +1,8 @@
+from random import randint
 from Player import Player
 from Field import PropertyField
 from Field import DiceChargePropertyField
+from Field import ChanceField
 from Dice import basic_roll
 
 
@@ -8,17 +10,28 @@ class Game:
     def __init__(self, board) -> None:
         self.board = board
         self.players = []
+        self._chance_result = 0
+
+    def get_chance_result(self):
+        return self._chance_result
 
     def roll_dice_result(self):
         self._dice_result = basic_roll(2, 6)
-        self._dice_result = 1
+        self._dice_result = 7
         return self._dice_result
 
     def field_action(self, pos, player):
-        if isinstance(self.board[pos], DiceChargePropertyField):
-            self.board[pos].Action(player, self._dice_result)
+        if isinstance(self.board[pos], ChanceField):
+            self._chance_result = randint(-50, 50)
+            if self._chance_result == 0:
+                self._chance_result += 1
+            self.board[pos].Action(player, self._chance_result)
         else:
-            self.board[pos].Action(player)
+            self._chance_result == 0
+            if isinstance(self.board[pos], DiceChargePropertyField):
+                self.board[pos].Action(player, self._dice_result)
+            else:
+                self.board[pos].Action(player)
 
     def get_board_length(self):
         return self.get_board_length

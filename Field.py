@@ -49,8 +49,13 @@ class DiceChargePropertyField(PropertyField):
 
 
 class ChanceField(Field):
-    def Action(self, player):
-        pass
+    def Action(self, player, result):
+        if result < 0:
+            player.pay(result)
+            return True
+        else:
+            player.gain(result)
+            return False
 
 
 class PayField(Field):

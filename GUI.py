@@ -217,6 +217,13 @@ class MainWindow(QMainWindow):
         new_pos = self._curr_player.get_position()
         self.update_player_pos(old_pos, new_pos)
         self.perform_field_action(new_pos)
+        chance_result = self._game_instance.get_chance_result()
+        chance_str = ""
+        if chance_result > 0:
+            chance_str = f"Wygrałeś {chance_result}"
+        elif chance_result < 0:
+            chance_str = f"Przegrałeś {abs(chance_result)}"
+        self.ui.ChanceResult.setText(chance_str)
         self.update_lists()
 
     def check_buying(self):
@@ -288,6 +295,7 @@ class MainWindow(QMainWindow):
     def end_turn(self):
         self._curr_player_index = (self._curr_player_index + 1) % len(self._used_names)
         self.already_rolled = False
+        self.ui.ChanceResult.setText("")
         self.turn()
 
 

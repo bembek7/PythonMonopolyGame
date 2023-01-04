@@ -1230,12 +1230,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addLayout(self.pole_29, 10, 2, 1, 1)
 
-        self.Tura = QLabel(self.gra)
-        self.Tura.setObjectName(u"Tura")
-        self.Tura.setFont(font3)
-
-        self.gridLayout_2.addWidget(self.Tura, 2, 5, 1, 2)
-
         self.pole_20 = QVBoxLayout()
         self.pole_20.setSpacing(1)
         self.pole_20.setObjectName(u"pole_20")
@@ -2275,6 +2269,17 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.label_85, 1, 7, 1, 1)
 
+        self.Tura = QLabel(self.gra)
+        self.Tura.setObjectName(u"Tura")
+        self.Tura.setFont(font3)
+
+        self.gridLayout_2.addWidget(self.Tura, 1, 5, 1, 2)
+
+        self.ChanceResult = QLabel(self.gra)
+        self.ChanceResult.setObjectName(u"ChanceResult")
+
+        self.gridLayout_2.addWidget(self.ChanceResult, 2, 5, 1, 1)
+
 
         self.verticalLayout_4.addLayout(self.gridLayout_2)
 
@@ -2390,7 +2395,6 @@ class Ui_MainWindow(object):
         self.label_58.setText("")
         self.label_59.setText("")
         self.cena_29.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.Tura.setText(QCoreApplication.translate("MainWindow", u"Tura gracza: ", None))
         self.nazwa_20.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.label_40.setText("")
         self.label_41.setText("")
@@ -2475,5 +2479,7 @@ class Ui_MainWindow(object):
         self.label_9.setText("")
         self.cena_4.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.label_85.setText(QCoreApplication.translate("MainWindow", u"Tury do wykupu:", None))
+        self.Tura.setText(QCoreApplication.translate("MainWindow", u"Tura gracza: ", None))
+        self.ChanceResult.setText("")
     # retranslateUi
 

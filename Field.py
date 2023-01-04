@@ -41,10 +41,14 @@ class PropertyField(Field):
         self._property.set_owner(player)
 
 
-class ChanceField(Field):
-    def __init__(self, position, name="") -> None:
-        super().__init__(position, name)
+class DiceChargePropertyField(PropertyField):
+    def Action(self, player: Player, dice_result):
+        if self._property.get_owner() != "" and self._property.get_owner() != player.get_name():
+            player.pay(self._property.charge(dice_result))
+            self._property.get_owner().gain(self._property.charge(dice_result))
 
+
+class ChanceField(Field):
     def Action(self, player):
         pass
 

@@ -1,5 +1,4 @@
 from PySide2.QtWidgets import QMainWindow
-from Dice import basic_roll
 from PySide2.QtWidgets import QApplication
 from PySide2 import QtCore
 from Property import TypicalProperty
@@ -30,17 +29,28 @@ class MainWindow(QMainWindow):
         self._board = self._game_instance.board
         self._curr_player_index = 0
         self.ui.ListaGraczyGra.itemClicked.connect(self.show_player)
+        self.ui.ListaKomu.itemClicked.connect(self.update_sell_button)
+        self.ui.ListaNaSprzedaz.itemClicked.connect(self.update_sell_button)
+        self.ui.Kwota.textChanged.connect(self.update_sell_button)
         self.already_rolled = False
         self.set_names()
         self.set_prices()
         self.set_properties()
 
+    def update_sell_button(self):
+        if self.ui.ListaNaSprzedaz.currentItem() is not None and self.ui.ListaKomu.currentItem() is not None and self.ui.Kwota.text() != "":
+            self.ui.SprzedazButton.setEnabled(True)
+        else:
+            self.ui.SprzedazButton.setEnabled(False)
+
     def selling_property(self):
-        self._game_instance.sell_property(self._curr_player, )
+        self._game_instance.sell_property(self._curr_player, int(self.ui.Kwota.text()), self.ui.ListaNaSprzedaz.currentItem().text(), self.ui.ListaKomu.currentItem().text())
+        self.ui.Kwota.setText("")
+        self.update_lists()
 
     def update_properties_selling(self):
         self.ui.ListaNaSprzedaz.clear()
-        for property in self._curr_player.get_properties():
+        for property in self._curr_player.get_sellable_properties():
             self.ui.ListaNaSprzedaz.addItem(str(property))
 
     def update_players_selling(self):
@@ -109,6 +119,7 @@ class MainWindow(QMainWindow):
         self.set_properties()
         self.update_players_selling()
         self.update_properties_selling()
+        self.update_sell_button()
         self.show_player(self.ui.ListaGraczyGra.currentItem())
         if self.already_rolled:
             self.ui.KupDomekButton.setEnabled(False)
@@ -149,11 +160,11 @@ class MainWindow(QMainWindow):
                     if a <= 9:
                         self.ui.gridLayout_2.itemAtPosition(0, a).itemAt(2).widget().setText(string)
                     elif a <= 19:
-                        self.ui.gridLayout_2.itemAtPosition(a-10, 10).itemAt(2).widget().setText(string)
+                        self.ui.gridLayout_2.itemAtPosition(a - 10, 10).itemAt(2).widget().setText(string)
                     elif a <= 29:
-                        self.ui.gridLayout_2.itemAtPosition(10, abs(a-30)).itemAt(2).widget().setText(string)
+                        self.ui.gridLayout_2.itemAtPosition(10, abs(a - 30)).itemAt(2).widget().setText(string)
                     else:
-                        self.ui.gridLayout_2.itemAtPosition(abs(a-40), 0).itemAt(2).widget().setText(string)
+                        self.ui.gridLayout_2.itemAtPosition(abs(a - 40), 0).itemAt(2).widget().setText(string)
 
     def set_prices(self):
         for a in range(0, 40):
@@ -162,22 +173,22 @@ class MainWindow(QMainWindow):
                 if a <= 9:
                     self.ui.gridLayout_2.itemAtPosition(0, a).itemAt(4).widget().setText(str(property.get_price()))
                 elif a <= 19:
-                    self.ui.gridLayout_2.itemAtPosition(a-10, 10).itemAt(4).widget().setText(str(property.get_price()))
+                    self.ui.gridLayout_2.itemAtPosition(a - 10, 10).itemAt(4).widget().setText(str(property.get_price()))
                 elif a <= 29:
-                    self.ui.gridLayout_2.itemAtPosition(10, abs(a-30)).itemAt(4).widget().setText(str(property.get_price()))
+                    self.ui.gridLayout_2.itemAtPosition(10, abs(a - 30)).itemAt(4).widget().setText(str(property.get_price()))
                 else:
-                    self.ui.gridLayout_2.itemAtPosition(abs(a-40), 0).itemAt(4).widget().setText(str(property.get_price()))
+                    self.ui.gridLayout_2.itemAtPosition(abs(a - 40), 0).itemAt(4).widget().setText(str(property.get_price()))
 
     def set_names(self):
         for a in range(0, 40):
             if a <= 9:
                 self.ui.gridLayout_2.itemAtPosition(0, a).itemAt(0).widget().setText(self._board[a].get_name())
             elif a <= 19:
-                self.ui.gridLayout_2.itemAtPosition(a-10, 10).itemAt(0).widget().setText(self._board[a].get_name())
+                self.ui.gridLayout_2.itemAtPosition(a - 10, 10).itemAt(0).widget().setText(self._board[a].get_name())
             elif a <= 29:
-                self.ui.gridLayout_2.itemAtPosition(10, abs(a-30)).itemAt(0).widget().setText(self._board[a].get_name())
+                self.ui.gridLayout_2.itemAtPosition(10, abs(a - 30)).itemAt(0).widget().setText(self._board[a].get_name())
             else:
-                self.ui.gridLayout_2.itemAtPosition(abs(a-40), 0).itemAt(0).widget().setText(self._board[a].get_name())
+                self.ui.gridLayout_2.itemAtPosition(abs(a - 40), 0).itemAt(0).widget().setText(self._board[a].get_name())
 
     def clicked_play(self):
         self.ui.plansze.setCurrentIndex(1)
@@ -195,15 +206,10 @@ class MainWindow(QMainWindow):
         self.ui.ListaGraczy.addItem(name)
         self.ui.ListaGraczyGra.addItem(name)
 
-    def roll_dice_result(self):
-        result = basic_roll(2, 6)
-        self.ui.WynikRzutu.setText(f"Wynik rzutu {result}")
-        return result
-
     def rolled(self):
-        # result = self.roll_dice_result()
+        result = self._game_instance.roll_dice_result()
+        self.ui.WynikRzutu.setText(str(result))
         self.already_rolled = True
-        result = 1
         self.ui.KupDomekButton.setEnabled(False)
         self.ui.RzutButton.setEnabled(False)
         old_pos = self._curr_player.get_position()
@@ -218,7 +224,7 @@ class MainWindow(QMainWindow):
             self.ui.KupButton.setEnabled(True)
 
     def perform_field_action(self, pos):
-        self._board[pos].Action(self._curr_player)
+        self._game_instance.field_action(pos, self._curr_player)
         # if pos == 30:
         #     self.go_to_jail()
         self.check_buying()
@@ -238,19 +244,19 @@ class MainWindow(QMainWindow):
         if old_pos <= 9:
             self.deleteItem(self._curr_player.get_name(), self.ui.gridLayout_2.itemAtPosition(0, old_pos).itemAt(index).widget())
         elif old_pos <= 19:
-            self.deleteItem(self._curr_player.get_name(), self.ui.gridLayout_2.itemAtPosition(old_pos-10, 10).itemAt(index).widget())
+            self.deleteItem(self._curr_player.get_name(), self.ui.gridLayout_2.itemAtPosition(old_pos - 10, 10).itemAt(index).widget())
         elif old_pos <= 29:
-            self.deleteItem(self._curr_player.get_name(), self.ui.gridLayout_2.itemAtPosition(10, abs(old_pos-30)).itemAt(index).widget())
+            self.deleteItem(self._curr_player.get_name(), self.ui.gridLayout_2.itemAtPosition(10, abs(old_pos - 30)).itemAt(index).widget())
         else:
-            self.deleteItem(self._curr_player.get_name(), self.ui.gridLayout_2.itemAtPosition(abs(old_pos-40), 0).itemAt(index).widget())
+            self.deleteItem(self._curr_player.get_name(), self.ui.gridLayout_2.itemAtPosition(abs(old_pos - 40), 0).itemAt(index).widget())
         if new_pos <= 9:
             self.ui.gridLayout_2.itemAtPosition(0, new_pos).itemAt(index).widget().addItem(self._curr_player.get_name())
         elif new_pos <= 19:
-            self.ui.gridLayout_2.itemAtPosition(new_pos-10, 10).itemAt(index).widget().addItem(self._curr_player.get_name())
+            self.ui.gridLayout_2.itemAtPosition(new_pos - 10, 10).itemAt(index).widget().addItem(self._curr_player.get_name())
         elif new_pos <= 29:
-            self.ui.gridLayout_2.itemAtPosition(10, abs(new_pos-30)).itemAt(index).widget().addItem(self._curr_player.get_name())
+            self.ui.gridLayout_2.itemAtPosition(10, abs(new_pos - 30)).itemAt(index).widget().addItem(self._curr_player.get_name())
         else:
-            self.ui.gridLayout_2.itemAtPosition(abs(new_pos-40), 0).itemAt(index).widget().addItem(self._curr_player.get_name())
+            self.ui.gridLayout_2.itemAtPosition(abs(new_pos - 40), 0).itemAt(index).widget().addItem(self._curr_player.get_name())
 
     def add_player(self):
         if self.ui.ListaGraczy.count() < 6 and self.ui.lineEdit.text().strip() != "" and self.ui.lineEdit.text() not in self._used_names:

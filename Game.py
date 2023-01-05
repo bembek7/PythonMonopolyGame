@@ -11,6 +11,25 @@ class Game:
         self.board = board
         self.players = []
         self._chance_result = 0
+        self._jail_price = 50
+
+    def get_jail_price(self):
+        return self._jail_price
+
+    def get_activation_price_from_name(self, name):
+        for field in self.board:
+            if field.get_name() == name:
+                return field.get_property().get_price() / 2 + field.get_property().get_price() / 10
+                break
+
+    def get_apartment_price_from_name(self, name):
+        for field in self.board:
+            if field.get_name() == name:
+                return field.get_property().get_apartment_price()
+                break
+
+    def zero_chance_result(self):
+        self._chance_result = 0
 
     def get_chance_result(self):
         return self._chance_result

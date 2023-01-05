@@ -62,7 +62,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="menu">
        <property name="sizePolicy">
@@ -2636,7 +2636,7 @@
            </layout>
           </item>
           <item row="1" column="9">
-           <widget class="QPushButton" name="WykupButton_2">
+           <widget class="QPushButton" name="WiezienieButton">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -5232,7 +5232,7 @@
            </widget>
           </item>
           <item row="8" column="9">
-           <widget class="QLabel" name="label_49">
+           <widget class="QLabel" name="Broke">
             <property name="styleSheet">
              <string notr="true">color: rgb(255, 0, 0);</string>
             </property>

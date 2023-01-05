@@ -1187,13 +1187,13 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addLayout(self.pole_34, 10, 7, 1, 1)
 
-        self.WykupButton_2 = QPushButton(self.gra)
-        self.WykupButton_2.setObjectName(u"WykupButton_2")
-        sizePolicy4.setHeightForWidth(self.WykupButton_2.sizePolicy().hasHeightForWidth())
-        self.WykupButton_2.setSizePolicy(sizePolicy4)
-        self.WykupButton_2.setFont(font5)
+        self.WiezienieButton = QPushButton(self.gra)
+        self.WiezienieButton.setObjectName(u"WiezienieButton")
+        sizePolicy4.setHeightForWidth(self.WiezienieButton.sizePolicy().hasHeightForWidth())
+        self.WiezienieButton.setSizePolicy(sizePolicy4)
+        self.WiezienieButton.setFont(font5)
 
-        self.gridLayout_2.addWidget(self.WykupButton_2, 1, 9, 1, 1)
+        self.gridLayout_2.addWidget(self.WiezienieButton, 1, 9, 1, 1)
 
         self.pole_29 = QVBoxLayout()
         self.pole_29.setSpacing(1)
@@ -2304,12 +2304,12 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.PoddajButton, 9, 8, 1, 1)
 
-        self.label_49 = QLabel(self.gra)
-        self.label_49.setObjectName(u"label_49")
-        self.label_49.setStyleSheet(u"color: rgb(255, 0, 0);")
-        self.label_49.setWordWrap(True)
+        self.Broke = QLabel(self.gra)
+        self.Broke.setObjectName(u"Broke")
+        self.Broke.setStyleSheet(u"color: rgb(255, 0, 0);")
+        self.Broke.setWordWrap(True)
 
-        self.gridLayout_2.addWidget(self.label_49, 8, 9, 1, 1)
+        self.gridLayout_2.addWidget(self.Broke, 8, 9, 1, 1)
 
         self.label_87 = QLabel(self.gra)
         self.label_87.setObjectName(u"label_87")
@@ -2354,7 +2354,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.plansze.setCurrentIndex(2)
+        self.plansze.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -2447,7 +2447,7 @@ class Ui_MainWindow(object):
         self.label_68.setText("")
         self.label_69.setText("")
         self.cena_34.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.WykupButton_2.setText(QCoreApplication.translate("MainWindow", u"Wykup si\u0119", None))
+        self.WiezienieButton.setText(QCoreApplication.translate("MainWindow", u"Wykup si\u0119", None))
         self.nazwa_29.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.label_58.setText("")
         self.label_59.setText("")
@@ -2538,7 +2538,7 @@ class Ui_MainWindow(object):
         self.Tura.setText(QCoreApplication.translate("MainWindow", u"Tura gracza: ", None))
         self.ChanceResult.setText("")
         self.PoddajButton.setText(QCoreApplication.translate("MainWindow", u"Poddaj si\u0119", None))
-        self.label_49.setText("")
+        self.Broke.setText("")
         self.label_87.setText(QCoreApplication.translate("MainWindow", u"Pozosta\u0142o rund :", None))
         self.PozostaloRund.setText("")
         self.Win.setText(QCoreApplication.translate("MainWindow", u"Wygrywa gracz: ", None))

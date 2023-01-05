@@ -52,7 +52,7 @@ board = [
     PropertyField(34, TypicalProperty("Green3", 34, 320, "green", 200)),
     PropertyField(35, AirportProperty("Airport4", 25, 200, "airport")),
     ChanceField(36, "Szansa"),
-    PropertyField(37, TypicalProperty("Dark Blue1", 45, 350, "dark blue", 200)),
+    PropertyField(37, TypicalProperty("Dark Blue1", 45, 360, "dark blue", 200)),
     PayField(38, "Domiar Podatkowy", 100),
     PropertyField(39, TypicalProperty("Dark Blue2", 50, 400, "dark blue", 200)),
 ]

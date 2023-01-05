@@ -32,11 +32,22 @@ class MainWindow(QMainWindow):
         self.ui.ListaGraczyGra.itemClicked.connect(self.show_player)
         self.ui.ListaKomu.itemClicked.connect(self.update_sell_button)
         self.ui.ListaNaSprzedaz.itemClicked.connect(self.update_sell_button)
+        self.ui.ListaWykup.itemClicked.connect(self.update_activate_property)
+        self.ui.ListaKupienia.itemClicked.connect(self.update_buy_apartment)
         self.ui.Kwota.textChanged.connect(self.update_sell_button)
         self.already_rolled = False
         self.set_names()
         self.set_prices()
         self.set_properties()
+
+    def check_broke(self):
+        if self._curr_player.is_broke():
+            self.ui.Broke.setText("Nie możesz skończyć tury, mając długi!")
+            self.ui.KoniecTuryButton.setEnabled(False)
+            self.ui.RzutButton.setEnabled(False)
+        else:
+            self.ui.Broke.setText("")
+            self.ui.KoniecTuryButton.setEnabled(self.already_rolled)
 
     def player_gave_up(self):
         self.remove_player_from_board(self._curr_player)
@@ -90,11 +101,10 @@ class MainWindow(QMainWindow):
             for field in self._board:
                 if isinstance(field, PropertyField):
                     property = field.get_property()
-                    if isinstance(property, TypicalProperty):
-                        if property.get_name() == property_name:
-                            self._curr_player.buy_apartment(property)
-                            self.update_lists()
-                            break
+                    if isinstance(property, TypicalProperty) and property.get_name() == property_name:
+                        self._curr_player.buy_apartment(property)
+                        self.update_lists()
+                        break
 
     def deactivating_property(self):
         if self.ui.ListaZastaw.currentItem() is not None:
@@ -129,6 +139,38 @@ class MainWindow(QMainWindow):
             list_widget.addItem(property.get_name())
         button.setEnabled(len(properties) > 0)
 
+    def update_buy(self):
+        if not self._board[self._curr_player.get_position()].can_buy(self._curr_player) and not self.already_buyed:
+            self.ui.KupButton.setEnabled(False)
+        elif not self.already_buyed:
+            self.ui.KupButton.setEnabled(True)
+
+    def update_buy_apartment(self):
+        if not self._curr_player.can_afford(self._game_instance.get_apartment_price_from_name(self.ui.ListaKupienia.currentItem().text())):
+            self.ui.KupDomekButton.setEnabled(False)
+        else:
+            self.ui.KupDomekButton.setEnabled(True)
+
+    def update_buy_out_of_jail(self):
+        # need changes
+        if self.ui.WiezienieButton.isEnabled():
+            if not self._curr_player.can_afford(self._game_instance.get_jail_price()):
+                self.ui.WiezienieButton.setEnabled(False)
+
+    def update_activate_property(self):
+        if not self._curr_player.can_afford(self._game_instance.get_activation_price_from_name(self.ui.ListaWykup.currentItem().text())):
+            self.ui.WykupButton.setEnabled(False)
+        else:
+            self.ui.WykupButton.setEnabled(True)
+
+    def update_buying_buttons(self):
+        self.update_buy()
+        if self.ui.ListaKupienia.currentItem() is not None:
+            self.update_buy_apartment()
+        self.update_buy_out_of_jail()
+        if self.ui.ListaWykup.currentItem() is not None:
+            self.update_activate_property()
+
     def update_lists(self):
         self.show_deactivable_properties()
         self.show_activable_properties()
@@ -141,6 +183,8 @@ class MainWindow(QMainWindow):
         self.show_player(self.ui.ListaGraczyGra.currentItem())
         if self.already_rolled:
             self.ui.KupDomekButton.setEnabled(False)
+        self.update_buying_buttons()
+        self.check_broke()
 
     def show_sellable_apartments(self):
         self.show_list_widget(self.ui.ListaSprzedania, self._curr_player.get_sellable_apartments(), self.ui.SprzedajDomekButton)
@@ -220,6 +264,7 @@ class MainWindow(QMainWindow):
     def player_buys(self):
         self._board[self._curr_player.get_position()].buy(self._curr_player)
         self.ui.KupButton.setEnabled(False)
+        self.already_buyed = True
         self.update_lists()
 
     def setupPlayersList(self, name):
@@ -228,6 +273,7 @@ class MainWindow(QMainWindow):
 
     def rolled(self):
         result = self._game_instance.roll_dice_result()
+        self._game_instance.zero_chance_result()
         self.ui.WynikRzutu.setText(str(result))
         self.already_rolled = True
         self.ui.KupDomekButton.setEnabled(False)
@@ -254,8 +300,9 @@ class MainWindow(QMainWindow):
         self._game_instance.field_action(pos, self._curr_player)
         # if pos == 30:
         #     self.go_to_jail()
-        self.check_buying()
         self.ui.KoniecTuryButton.setEnabled(True)
+        self.check_buying()
+        self.update_lists()
 
     def go_to_jail(self):
         old_pos = self._curr_player.get_position()
@@ -311,6 +358,7 @@ class MainWindow(QMainWindow):
             self.ui.DodajGraczaButton.setEnabled(False)
 
     def turn(self):
+        self.already_buyed = False
         self._curr_player = self._game_instance.players[self._curr_player_index]
         if len(self._game_instance.players) == 1:
             self.player_win(self._curr_player.get_name())

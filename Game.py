@@ -17,7 +17,7 @@ class Game:
 
     def roll_dice_result(self):
         self._dice_result = basic_roll(2, 6)
-        self._dice_result = 7
+        self._dice_result = 5  # ########################################
         return self._dice_result
 
     def field_action(self, pos, player):
@@ -32,6 +32,10 @@ class Game:
                 self.board[pos].Action(player, self._dice_result)
             else:
                 self.board[pos].Action(player)
+
+    def player_loses(self, player):
+        self.players.remove(player)
+        player.lose()
 
     def get_board_length(self):
         return self.get_board_length

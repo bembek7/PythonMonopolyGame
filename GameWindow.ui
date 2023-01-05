@@ -62,7 +62,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="menu">
        <property name="sizePolicy">
@@ -187,6 +187,34 @@
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_86">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>20</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Liczba rund (0 - aż do wygrania)</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="LiczbaRund">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QPushButton" name="GrajButton">
@@ -2608,7 +2636,7 @@
            </layout>
           </item>
           <item row="1" column="9">
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="WykupButton_2">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -3164,25 +3192,10 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_3">
-              <property name="maximumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>12</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-             </widget>
+             <widget class="QListWidget" name="ListWiezienie"/>
             </item>
             <item>
-             <widget class="QLabel" name="label_49">
+             <widget class="QLabel" name="label_3">
               <property name="maximumSize">
                <size>
                 <width>0</width>
@@ -5200,7 +5213,76 @@
             </property>
            </widget>
           </item>
+          <item row="9" column="8">
+           <widget class="QPushButton" name="PoddajButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>18</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Poddaj się</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="9">
+           <widget class="QLabel" name="label_49">
+            <property name="styleSheet">
+             <string notr="true">color: rgb(255, 0, 0);</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="4">
+           <widget class="QLabel" name="label_87">
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Pozostało rund :</string>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="5">
+           <widget class="QLabel" name="PozostaloRund">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
          </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page">
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <widget class="QLabel" name="Win">
+          <property name="font">
+           <font>
+            <pointsize>90</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Wygrywa gracz: </string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>

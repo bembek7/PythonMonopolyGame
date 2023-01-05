@@ -54,6 +54,14 @@ class Player:
     def get_name(self):
         return self._name
 
+    def can_afford(self, amount):
+        return self._cash >= amount
+
+    def lose(self):
+        for property in self._properties:
+            property.free()
+        del self
+
     def gain(self, amount):
         self._cash = int(self._cash + amount)
 
@@ -143,9 +151,7 @@ class Player:
         return other == self._dir_of_colors_needed[color]
 
     def pay(self, amount):
-        if self._cash - amount >= 0:
-            self._cash = int(self._cash - amount)
-        return True
+        self._cash = int(self._cash - amount)
 
     def buy_apartment(self, property):
         self.pay(int(property.get_apartment_price()))

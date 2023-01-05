@@ -27,7 +27,7 @@ class PropertyField(Field):
 
     def can_buy(self, player: Player):
         if self._property.get_owner() == "":
-            return player.get_cash() >= self._property.get_price()
+            return player.can_afford(self._property.get_price())
         else:
             return False
 
@@ -51,11 +51,9 @@ class DiceChargePropertyField(PropertyField):
 class ChanceField(Field):
     def Action(self, player, result):
         if result < 0:
-            player.pay(result)
-            return True
+            player.pay(abs(result))
         else:
             player.gain(result)
-            return False
 
 
 class PayField(Field):

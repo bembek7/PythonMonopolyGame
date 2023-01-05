@@ -6,6 +6,10 @@ class Property:
         self._price = price
         self._active = True
 
+    def free(self):
+        self._owner = ""
+        self._active = True
+
     def is_active(self):
         return self._active
 
@@ -40,6 +44,10 @@ class TypicalProperty(Property):
         self._color = color
         self._apartments = 1  # 6 = hotel
         self._apartment_price = apartment_price
+
+    def free(self):
+        super().free()
+        self._apartments = 1
 
     def get_color(self):
         return self._color

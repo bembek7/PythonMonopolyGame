@@ -17,7 +17,7 @@ class Game:
 
     def roll_dice_result(self):
         self._dice_result = basic_roll(2, 6)
-        self._dice_result = 5  # ########################################
+        self._dice_result = 1  # changing for test reasons
         return self._dice_result
 
     def field_action(self, pos, player):

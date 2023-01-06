@@ -28,6 +28,7 @@ class MainWindow(QMainWindow):
         self._used_names = []
         self._game_instance = game
         self._board = self._game_instance.board
+        self._nr_of_rounds = 0
         self._curr_player_index = 0
         self.ui.ListaGraczyGra.itemClicked.connect(self.show_player)
         self.ui.ListaKomu.itemClicked.connect(self.update_sell_button)
@@ -256,6 +257,8 @@ class MainWindow(QMainWindow):
 
     def clicked_play(self):
         self.ui.plansze.setCurrentIndex(1)
+        self._nr_of_rounds = self.ui.LiczbaRund.value()
+        self.end_round = self._nr_of_rounds > 0
         self.turn()
         for player in self._game_instance.players:
             index = 3
@@ -358,10 +361,16 @@ class MainWindow(QMainWindow):
             self.ui.DodajGraczaButton.setEnabled(False)
 
     def turn(self):
+        self.already_rolled = False
         self.already_buyed = False
         self._curr_player = self._game_instance.players[self._curr_player_index]
         if len(self._game_instance.players) == 1:
             self.player_win(self._curr_player.get_name())
+        if self.end_round and self._curr_player == self._game_instance.players[0]:
+            if self._nr_of_rounds == 0:
+                winner_name = self._game_instance.who_wins()
+                self.player_win(winner_name)
+            self.ui.PozostaloRund.setText(str(self._nr_of_rounds))
         self.ui.Tura.setText(f"Tura gracza : {self._curr_player.get_name()}")
         self.ui.KoniecTuryButton.setEnabled(False)
         self.ui.KupButton.setEnabled(False)
@@ -377,9 +386,10 @@ class MainWindow(QMainWindow):
             list.takeItem(list.row(item))
 
     def end_turn(self):
-        self._curr_player_index = (self._curr_player_index + 1) % len(self._game_instance.players)
-        self.already_rolled = False
         self.ui.ChanceResult.setText("")
+        self._curr_player_index = (self._curr_player_index + 1) % len(self._game_instance.players)
+        if self.end_round and self._curr_player == self._game_instance.players[0]:
+            self._nr_of_rounds -= 1
         self.turn()
 
 

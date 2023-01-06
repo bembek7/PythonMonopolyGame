@@ -8,7 +8,7 @@ from Property import SpecialProperty
 class Player:
     def __init__(self, name) -> None:
         self._name = name
-        self._cash = 250  # zmienic po testach
+        self._cash = 500  # zmienic po testach
         self._position = 0
         self._properties = []
         self._in_jail = False

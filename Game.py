@@ -13,6 +13,15 @@ class Game:
         self._chance_result = 0
         self._jail_price = 50
 
+    def who_wins(self):
+        max_cash = 0
+        winner_name = ""
+        for player in self.players:
+            if player.get_cash() > max_cash:
+                winner_name = player.get_name()
+                max_cash = player.get_cash()
+        return winner_name
+
     def get_jail_price(self):
         return self._jail_price
 

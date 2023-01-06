@@ -299,27 +299,6 @@
           <property name="spacing">
            <number>10</number>
           </property>
-          <item row="4" column="6">
-           <widget class="QPushButton" name="ZastawButton">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>20</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>Zastaw</string>
-            </property>
-           </widget>
-          </item>
           <item row="6" column="9">
            <widget class="QLabel" name="WynikRzutu">
             <property name="font">
@@ -930,9 +909,6 @@
              </widget>
             </item>
            </layout>
-          </item>
-          <item row="6" column="5" rowspan="2">
-           <widget class="QListWidget" name="ListaWykup"/>
           </item>
           <item row="9" column="0">
            <layout class="QVBoxLayout" name="pole_41">
@@ -4349,9 +4325,6 @@
           <item row="8" column="2" rowspan="2">
            <widget class="QListWidget" name="ListaPosiadlosci"/>
           </item>
-          <item row="4" column="5" rowspan="2">
-           <widget class="QListWidget" name="ListaZastaw"/>
-          </item>
           <item row="7" column="10">
            <layout class="QVBoxLayout" name="pole_38">
             <property name="spacing">
@@ -4964,27 +4937,6 @@
             </property>
            </widget>
           </item>
-          <item row="6" column="6">
-           <widget class="QPushButton" name="WykupButton">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>20</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>Wykup</string>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="0">
            <layout class="QVBoxLayout" name="pole_1">
             <property name="spacing">
@@ -5206,13 +5158,6 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="5">
-           <widget class="QLabel" name="ChanceResult">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
           <item row="9" column="8">
            <widget class="QPushButton" name="PoddajButton">
             <property name="sizePolicy">
@@ -5244,7 +5189,14 @@
             </property>
            </widget>
           </item>
-          <item row="9" column="4">
+          <item row="3" column="5">
+           <widget class="QLabel" name="ChanceResult">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="5">
            <widget class="QLabel" name="label_87">
             <property name="font">
              <font>
@@ -5256,10 +5208,58 @@
             </property>
            </widget>
           </item>
-          <item row="9" column="5">
+          <item row="2" column="6">
            <widget class="QLabel" name="PozostaloRund">
             <property name="text">
              <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="5" rowspan="2">
+           <widget class="QListWidget" name="ListaWykup"/>
+          </item>
+          <item row="7" column="6">
+           <widget class="QPushButton" name="WykupButton">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>20</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Wykup</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="5" rowspan="2">
+           <widget class="QListWidget" name="ListaZastaw"/>
+          </item>
+          <item row="5" column="6">
+           <widget class="QPushButton" name="ZastawButton">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>20</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Zastaw</string>
             </property>
            </widget>
           </item>

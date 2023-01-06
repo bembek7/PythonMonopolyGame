@@ -171,15 +171,6 @@ class Ui_MainWindow(object):
         self.gridLayout_2.setSpacing(10)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.gridLayout_2.setSizeConstraint(QLayout.SetNoConstraint)
-        self.ZastawButton = QPushButton(self.gra)
-        self.ZastawButton.setObjectName(u"ZastawButton")
-        self.ZastawButton.setEnabled(False)
-        sizePolicy4.setHeightForWidth(self.ZastawButton.sizePolicy().hasHeightForWidth())
-        self.ZastawButton.setSizePolicy(sizePolicy4)
-        self.ZastawButton.setFont(font3)
-
-        self.gridLayout_2.addWidget(self.ZastawButton, 4, 6, 1, 1)
-
         self.WynikRzutu = QLabel(self.gra)
         self.WynikRzutu.setObjectName(u"WynikRzutu")
         self.WynikRzutu.setFont(font3)
@@ -450,11 +441,6 @@ class Ui_MainWindow(object):
 
 
         self.gridLayout_2.addLayout(self.pole_27, 10, 1, 1, 1)
-
-        self.ListaWykup = QListWidget(self.gra)
-        self.ListaWykup.setObjectName(u"ListaWykup")
-
-        self.gridLayout_2.addWidget(self.ListaWykup, 6, 5, 2, 1)
 
         self.pole_41 = QVBoxLayout()
         self.pole_41.setSpacing(1)
@@ -1921,11 +1907,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.ListaPosiadlosci, 8, 2, 2, 1)
 
-        self.ListaZastaw = QListWidget(self.gra)
-        self.ListaZastaw.setObjectName(u"ListaZastaw")
-
-        self.gridLayout_2.addWidget(self.ListaZastaw, 4, 5, 2, 1)
-
         self.pole_38 = QVBoxLayout()
         self.pole_38.setSpacing(1)
         self.pole_38.setObjectName(u"pole_38")
@@ -2182,15 +2163,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.SprzedajDomekButton, 4, 8, 1, 1)
 
-        self.WykupButton = QPushButton(self.gra)
-        self.WykupButton.setObjectName(u"WykupButton")
-        self.WykupButton.setEnabled(False)
-        sizePolicy4.setHeightForWidth(self.WykupButton.sizePolicy().hasHeightForWidth())
-        self.WykupButton.setSizePolicy(sizePolicy4)
-        self.WykupButton.setFont(font3)
-
-        self.gridLayout_2.addWidget(self.WykupButton, 6, 6, 1, 1)
-
         self.pole_1 = QVBoxLayout()
         self.pole_1.setSpacing(1)
         self.pole_1.setObjectName(u"pole_1")
@@ -2291,11 +2263,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.Tura, 1, 5, 1, 2)
 
-        self.ChanceResult = QLabel(self.gra)
-        self.ChanceResult.setObjectName(u"ChanceResult")
-
-        self.gridLayout_2.addWidget(self.ChanceResult, 2, 5, 1, 1)
-
         self.PoddajButton = QPushButton(self.gra)
         self.PoddajButton.setObjectName(u"PoddajButton")
         sizePolicy4.setHeightForWidth(self.PoddajButton.sizePolicy().hasHeightForWidth())
@@ -2311,16 +2278,49 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.Broke, 8, 9, 1, 1)
 
+        self.ChanceResult = QLabel(self.gra)
+        self.ChanceResult.setObjectName(u"ChanceResult")
+
+        self.gridLayout_2.addWidget(self.ChanceResult, 3, 5, 1, 1)
+
         self.label_87 = QLabel(self.gra)
         self.label_87.setObjectName(u"label_87")
         self.label_87.setFont(font7)
 
-        self.gridLayout_2.addWidget(self.label_87, 9, 4, 1, 1)
+        self.gridLayout_2.addWidget(self.label_87, 2, 5, 1, 1)
 
         self.PozostaloRund = QLabel(self.gra)
         self.PozostaloRund.setObjectName(u"PozostaloRund")
 
-        self.gridLayout_2.addWidget(self.PozostaloRund, 9, 5, 1, 1)
+        self.gridLayout_2.addWidget(self.PozostaloRund, 2, 6, 1, 1)
+
+        self.ListaWykup = QListWidget(self.gra)
+        self.ListaWykup.setObjectName(u"ListaWykup")
+
+        self.gridLayout_2.addWidget(self.ListaWykup, 7, 5, 2, 1)
+
+        self.WykupButton = QPushButton(self.gra)
+        self.WykupButton.setObjectName(u"WykupButton")
+        self.WykupButton.setEnabled(False)
+        sizePolicy4.setHeightForWidth(self.WykupButton.sizePolicy().hasHeightForWidth())
+        self.WykupButton.setSizePolicy(sizePolicy4)
+        self.WykupButton.setFont(font3)
+
+        self.gridLayout_2.addWidget(self.WykupButton, 7, 6, 1, 1)
+
+        self.ListaZastaw = QListWidget(self.gra)
+        self.ListaZastaw.setObjectName(u"ListaZastaw")
+
+        self.gridLayout_2.addWidget(self.ListaZastaw, 5, 5, 2, 1)
+
+        self.ZastawButton = QPushButton(self.gra)
+        self.ZastawButton.setObjectName(u"ZastawButton")
+        self.ZastawButton.setEnabled(False)
+        sizePolicy4.setHeightForWidth(self.ZastawButton.sizePolicy().hasHeightForWidth())
+        self.ZastawButton.setSizePolicy(sizePolicy4)
+        self.ZastawButton.setFont(font3)
+
+        self.gridLayout_2.addWidget(self.ZastawButton, 5, 6, 1, 1)
 
 
         self.verticalLayout_4.addLayout(self.gridLayout_2)
@@ -2368,7 +2368,6 @@ class Ui_MainWindow(object):
         self.DodajGraczaButton.setText(QCoreApplication.translate("MainWindow", u"Dodaj gracza", None))
         self.label_86.setText(QCoreApplication.translate("MainWindow", u"Liczba rund (0 - a\u017c do wygrania)", None))
         self.GrajButton.setText(QCoreApplication.translate("MainWindow", u"Graj", None))
-        self.ZastawButton.setText(QCoreApplication.translate("MainWindow", u"Zastaw", None))
         self.WynikRzutu.setText("")
         self.nazwa_32.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.label_64.setText("")
@@ -2526,7 +2525,6 @@ class Ui_MainWindow(object):
         self.KupButton.setText(QCoreApplication.translate("MainWindow", u"Kup", None))
         self.PieniadzeLabel.setText(QCoreApplication.translate("MainWindow", u"Pieni\u0105dze", None))
         self.SprzedajDomekButton.setText(QCoreApplication.translate("MainWindow", u"Sprzedaj domek", None))
-        self.WykupButton.setText(QCoreApplication.translate("MainWindow", u"Wykup", None))
         self.nazwa.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.label_48.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
@@ -2536,11 +2534,13 @@ class Ui_MainWindow(object):
         self.cena_4.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.label_85.setText(QCoreApplication.translate("MainWindow", u"Tury do wykupu:", None))
         self.Tura.setText(QCoreApplication.translate("MainWindow", u"Tura gracza: ", None))
-        self.ChanceResult.setText("")
         self.PoddajButton.setText(QCoreApplication.translate("MainWindow", u"Poddaj si\u0119", None))
         self.Broke.setText("")
+        self.ChanceResult.setText("")
         self.label_87.setText(QCoreApplication.translate("MainWindow", u"Pozosta\u0142o rund :", None))
         self.PozostaloRund.setText("")
+        self.WykupButton.setText(QCoreApplication.translate("MainWindow", u"Wykup", None))
+        self.ZastawButton.setText(QCoreApplication.translate("MainWindow", u"Zastaw", None))
         self.Win.setText(QCoreApplication.translate("MainWindow", u"Wygrywa gracz: ", None))
     # retranslateUi
 

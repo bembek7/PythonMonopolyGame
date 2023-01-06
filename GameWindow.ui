@@ -2344,7 +2344,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QListWidget" name="listWidget_17">
+             <widget class="QListWidget" name="ListaGoToJail">
               <property name="maximumSize">
                <size>
                 <width>150</width>
@@ -3168,7 +3168,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QListWidget" name="ListWiezienie"/>
+             <widget class="QListWidget" name="ListaWiezienie"/>
             </item>
             <item>
              <widget class="QLabel" name="label_3">
@@ -3189,7 +3189,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QListWidget" name="listWidget_2">
+             <widget class="QListWidget" name="ListaWiezienieWolni">
               <property name="maximumSize">
                <size>
                 <width>150</width>

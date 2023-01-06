@@ -22,6 +22,10 @@ class Game:
                 max_cash = player.get_cash()
         return winner_name
 
+    def free_player(self, player):
+        player.pay(self._jail_price)
+        player.free()
+
     def get_jail_price(self):
         return self._jail_price
 
@@ -45,7 +49,7 @@ class Game:
 
     def roll_dice_result(self):
         self._dice_result = basic_roll(2, 6)
-        self._dice_result = 1  # changing for test reasons
+        self._dice_result = 15  # changing for test reasons
         return self._dice_result
 
     def field_action(self, pos, player):

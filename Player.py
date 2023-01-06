@@ -8,10 +8,11 @@ from Property import SpecialProperty
 class Player:
     def __init__(self, name) -> None:
         self._name = name
-        self._cash = 500  # zmienic po testach
+        self._cash = 200  # zmienic po testach
         self._position = 0
         self._properties = []
         self._in_jail = False
+        self._rounds_left = 0
         self._dir_of_colors = {
             "brown": 0,
             "light blue": 0,
@@ -33,6 +34,18 @@ class Player:
             "dark blue": 2
         }
 
+    def get_rounds_left(self):
+        return self._rounds_left
+
+    def imprison(self):
+        self._in_jail = True
+
+    def free(self):
+        self._in_jail = False
+
+    def is_in_jail(self):
+        return self._in_jail
+
     def is_broke(self):
         return self._cash < 0
 
@@ -47,12 +60,6 @@ class Player:
 
     def set_position(self, newposition):
         self._position = newposition
-
-    def get_in_jail(self):
-        return self._in_jail
-
-    def set_in_jail(self, setjail):
-        self._in_jail = setjail
 
     def get_name(self):
         return self._name
@@ -190,11 +197,12 @@ class Player:
 
     def move(self, result):
         board_places = 40
-        if self._position + result >= board_places:
-            self._cash += 200
-        if self._position + result < 0:
-            self._position = board_places + self._position + result
-        self._position = (self._position + result) % board_places
+        if not self._in_jail:
+            if self._position + result >= board_places:
+                self._cash += 200
+            if self._position + result < 0:
+                self._position = board_places + self._position + result
+            self._position = (self._position + result) % board_places
 
     def can_buy_apartment(self):
         for key in self._dir_of_colors:

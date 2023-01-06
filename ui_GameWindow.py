@@ -1055,12 +1055,12 @@ class Ui_MainWindow(object):
 
         self.pole_36.addWidget(self.label_83)
 
-        self.listWidget_17 = QListWidget(self.gra)
-        self.listWidget_17.setObjectName(u"listWidget_17")
-        self.listWidget_17.setMaximumSize(QSize(150, 16777215))
-        self.listWidget_17.setFont(font)
+        self.ListaGoToJail = QListWidget(self.gra)
+        self.ListaGoToJail.setObjectName(u"ListaGoToJail")
+        self.ListaGoToJail.setMaximumSize(QSize(150, 16777215))
+        self.ListaGoToJail.setFont(font)
 
-        self.pole_36.addWidget(self.listWidget_17)
+        self.pole_36.addWidget(self.ListaGoToJail)
 
 
         self.gridLayout_2.addLayout(self.pole_36, 10, 0, 1, 1)
@@ -1405,10 +1405,10 @@ class Ui_MainWindow(object):
 
         self.pole_11.addWidget(self.nazwa_11)
 
-        self.ListWiezienie = QListWidget(self.gra)
-        self.ListWiezienie.setObjectName(u"ListWiezienie")
+        self.ListaWiezienie = QListWidget(self.gra)
+        self.ListaWiezienie.setObjectName(u"ListaWiezienie")
 
-        self.pole_11.addWidget(self.ListWiezienie)
+        self.pole_11.addWidget(self.ListaWiezienie)
 
         self.label_3 = QLabel(self.gra)
         self.label_3.setObjectName(u"label_3")
@@ -1417,12 +1417,12 @@ class Ui_MainWindow(object):
 
         self.pole_11.addWidget(self.label_3)
 
-        self.listWidget_2 = QListWidget(self.gra)
-        self.listWidget_2.setObjectName(u"listWidget_2")
-        self.listWidget_2.setMaximumSize(QSize(150, 16777215))
-        self.listWidget_2.setFont(font)
+        self.ListaWiezienieWolni = QListWidget(self.gra)
+        self.ListaWiezienieWolni.setObjectName(u"ListaWiezienieWolni")
+        self.ListaWiezienieWolni.setMaximumSize(QSize(150, 16777215))
+        self.ListaWiezienieWolni.setFont(font)
 
-        self.pole_11.addWidget(self.listWidget_2)
+        self.pole_11.addWidget(self.ListaWiezienieWolni)
 
 
         self.gridLayout_2.addLayout(self.pole_11, 0, 10, 1, 1)

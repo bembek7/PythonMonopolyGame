@@ -67,6 +67,5 @@ class PayField(Field):
 
 class GoToJailField(Field):
     def Action(self, player: Player):
-        pass
-        # player.set_position(10)
-        # player.set_in_jail(True)
+        player.set_position(10)
+        player.imprison()

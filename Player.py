@@ -34,11 +34,15 @@ class Player:
             "dark blue": 2
         }
 
+    def decrement_rounds(self):
+        self._rounds_left -= 1
+
     def get_rounds_left(self):
         return self._rounds_left
 
     def imprison(self):
         self._in_jail = True
+        self._rounds_left = 3
 
     def free(self):
         self._in_jail = False

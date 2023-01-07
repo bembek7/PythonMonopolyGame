@@ -37,16 +37,16 @@ class MainWindow(QMainWindow):
         self.ui.ListaWykup.itemClicked.connect(self.update_activate_property)
         self.ui.ListaKupienia.itemClicked.connect(self.update_buy_apartment)
         self.ui.Kwota.textChanged.connect(self.update_sell_button)
-        self.already_rolled = False
+        self._already_rolled = False
         self.set_names()
         self.set_prices()
         self.set_properties()
 
     def check_jail(self):
         if self._curr_player.is_in_jail():
-            self.ui.Wykuptury.setText(self._curr_player.get_rounds_left())
+            self.ui.Wykuptury.setText(str(self._curr_player.get_rounds_left()))
         else:
-            self.ui.Wykuptur.setText("")
+            self.ui.Wykuptury.setText("")
 
     def check_broke(self):
         if self._curr_player.is_broke():
@@ -55,7 +55,8 @@ class MainWindow(QMainWindow):
             self.ui.RzutButton.setEnabled(False)
         else:
             self.ui.Broke.setText("")
-            self.ui.KoniecTuryButton.setEnabled(self.already_rolled or self._curr_player.is_in_jail())
+            self.ui.RzutButton.setEnabled(not (self._already_rolled or self._curr_player.is_in_jail()))
+            self.ui.KoniecTuryButton.setEnabled(self._already_rolled or self._curr_player.is_in_jail())
 
     def player_gave_up(self):
         self.remove_player_from_board(self._curr_player)
@@ -148,10 +149,10 @@ class MainWindow(QMainWindow):
         button.setEnabled(len(properties) > 0)
 
     def update_buy(self):
-        if not self._board[self._curr_player.get_position()].can_buy(self._curr_player) and not self.already_buyed:
-            self.ui.KupButton.setEnabled(False)
-        elif not self.already_buyed:
+        if self._board[self._curr_player.get_position()].can_buy(self._curr_player) and not self.already_buyed and self._already_rolled:
             self.ui.KupButton.setEnabled(True)
+        else:
+            self.ui.KupButton.setEnabled(False)
 
     def update_buy_apartment(self):
         if not self._curr_player.can_afford(self._game_instance.get_apartment_price_from_name(self.ui.ListaKupienia.currentItem().text())):
@@ -189,7 +190,7 @@ class MainWindow(QMainWindow):
         self.update_properties_selling()
         self.update_sell_button()
         self.show_player(self.ui.ListaGraczyGra.currentItem())
-        if self.already_rolled:
+        if self._already_rolled:
             self.ui.KupDomekButton.setEnabled(False)
         self.update_buying_buttons()
         self.check_jail()
@@ -286,7 +287,7 @@ class MainWindow(QMainWindow):
         result = self._game_instance.roll_dice_result()
         self._game_instance.zero_chance_result()
         self.ui.WynikRzutu.setText(str(result))
-        self.already_rolled = True
+        self._already_rolled = True
         self.ui.KupDomekButton.setEnabled(False)
         self.ui.RzutButton.setEnabled(False)
         old_pos = self._curr_player.get_position()
@@ -320,14 +321,16 @@ class MainWindow(QMainWindow):
         self.ui.ListaWiezienie.addItem(self._curr_player.get_name())
         delete_item(self._curr_player.get_name(), self.ui.ListaGoToJail)
         self.ui.WiezienieButton.setEnabled(True)
+        self.check_jail()
 
     def free_of_jail(self):
         delete_item(self._curr_player.get_name(), self.ui.ListaWiezienie)
         self.ui.ListaWiezienieWolni.addItem(self._curr_player.get_name())
         self._game_instance.free_player(self._curr_player)
-        if not self.already_rolled:
+        if not self._already_rolled:
             self.ui.RzutButton.setEnabled(True)
         self.ui.WiezienieButton.setEnabled(False)
+        self.check_jail()
         self.update_lists()
 
 # 0-9 0,pos | 10-19 pos-10,10 | 20-29 10,abs(pos-30) | 30-39  abs(pos-40),0
@@ -376,7 +379,7 @@ class MainWindow(QMainWindow):
             self.ui.DodajGraczaButton.setEnabled(False)
 
     def turn(self):
-        self.already_rolled = False
+        self._already_rolled = False
         self.already_buyed = False
         self._curr_player = self._game_instance.players[self._curr_player_index]
         if len(self._game_instance.players) == 1:
@@ -391,11 +394,16 @@ class MainWindow(QMainWindow):
         self.ui.KupButton.setEnabled(False)
         if not self._curr_player.is_in_jail():
             self.ui.RzutButton.setEnabled(True)
+        self.check_jail()
         self.update_properties_selling
         self.update_lists()
 
     def end_turn(self):
         self.ui.ChanceResult.setText("")
+        if self._curr_player.get_rounds_left() == 1:
+            self.free_of_jail()
+        if self._curr_player.is_in_jail():
+            self._curr_player.decrement_rounds()
         self._curr_player_index = (self._curr_player_index + 1) % len(self._game_instance.players)
         if self.end_round and self._curr_player == self._game_instance.players[0]:
             self._nr_of_rounds -= 1
@@ -405,7 +413,6 @@ class MainWindow(QMainWindow):
 def gui_main(game, args):
     app = QApplication(args)
     window = MainWindow(game)
-
     window.showMaximized()
     return app.exec_()
 

@@ -70,7 +70,7 @@ class Game:
         player.lose()
 
     def get_board_length(self):
-        return self.get_board_length
+        return len(self.board)
 
     def add_player(self, name):
         self.players.append(Player(name))

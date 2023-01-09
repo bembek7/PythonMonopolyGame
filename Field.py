@@ -10,7 +10,7 @@ class Field:
     def get_name(self):
         return self._name
 
-    def Action(self, player):
+    def action(self, player):
         pass
 
     def can_buy(self, player: Player):
@@ -31,7 +31,7 @@ class PropertyField(Field):
         else:
             return False
 
-    def Action(self, player: Player):
+    def action(self, player: Player):
         if self._property.get_owner() != "" and self._property.get_owner() != player:
             player.pay(self._property.charge())
             self._property.get_owner().gain(self._property.charge())
@@ -41,14 +41,14 @@ class PropertyField(Field):
 
 
 class DiceChargePropertyField(PropertyField):
-    def Action(self, player: Player, dice_result):
+    def action(self, player: Player, dice_result):
         if self._property.get_owner() != "" and self._property.get_owner() != player:
             player.pay(self._property.charge(dice_result))
             self._property.get_owner().gain(self._property.charge(dice_result))
 
 
 class ChanceField(Field):
-    def Action(self, player, result):
+    def action(self, player, result):
         if result < 0:
             player.pay(abs(result))
         else:
@@ -60,11 +60,11 @@ class PayField(Field):
         super().__init__(position, name)
         self._amount_to_pay = amount_to_pay
 
-    def Action(self, player):
+    def action(self, player):
         player.pay(self._amount_to_pay)
 
 
 class GoToJailField(Field):
-    def Action(self, player: Player):
+    def action(self, player: Player):
         player.set_position(10)
         player.imprison()

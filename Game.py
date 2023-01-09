@@ -57,13 +57,13 @@ class Game:
             self._chance_result = randint(-50, 50)
             if self._chance_result == 0:
                 self._chance_result += 1
-            self.board[pos].Action(player, self._chance_result)
+            self.board[pos].action(player, self._chance_result)
         else:
             self._chance_result == 0
             if isinstance(self.board[pos], DiceChargePropertyField):
-                self.board[pos].Action(player, self._dice_result)
+                self.board[pos].action(player, self._dice_result)
             else:
-                self.board[pos].Action(player)
+                self.board[pos].action(player)
 
     def player_loses(self, player):
         self.players.remove(player)

@@ -36,7 +36,7 @@ class MainWindow(QMainWindow):
         self.ui.ListaNaSprzedaz.itemClicked.connect(self.update_sell_button)
         self.ui.ListaWykup.itemClicked.connect(self.update_activate_property)
         self.ui.ListaKupienia.itemClicked.connect(self.update_buy_apartment)
-        self.ui.Kwota.textChanged.connect(self.update_sell_button)
+        self.ui.Kwota.valueChanged.connect(self.update_sell_button)
         self._already_rolled = False
         self.set_names()
         self.set_prices()
@@ -71,14 +71,14 @@ class MainWindow(QMainWindow):
         self.ui.plansze.setCurrentIndex(2)
 
     def update_sell_button(self):
-        if self.ui.ListaNaSprzedaz.currentItem() is not None and self.ui.ListaKomu.currentItem() is not None and self.ui.Kwota.text() != "":
+        if self.ui.ListaNaSprzedaz.currentItem() is not None and self.ui.ListaKomu.currentItem() is not None and self.ui.Kwota.value() > 0:
             self.ui.SprzedazButton.setEnabled(True)
         else:
             self.ui.SprzedazButton.setEnabled(False)
 
     def selling_property(self):
-        self._game_instance.sell_property(self._curr_player, int(self.ui.Kwota.text()), self.ui.ListaNaSprzedaz.currentItem().text(), self.ui.ListaKomu.currentItem().text())
-        self.ui.Kwota.setText("")
+        self._game_instance.sell_property(self._curr_player, self.ui.Kwota.value(), self.ui.ListaNaSprzedaz.currentItem().text(), self.ui.ListaKomu.currentItem().text())
+        self.ui.Kwota.setValue(0)
         self.update_lists()
 
     def update_properties_selling(self):

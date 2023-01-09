@@ -82,6 +82,7 @@ class Player:
 
     def gain_property(self, property):
         self._properties.append(property)
+        property.set_owner(self)
 
     def get_sellable_properties(self):
         sellable_properties = []
@@ -193,6 +194,7 @@ class Player:
 
     def buy_property(self, property: Property):
         self._properties.append(property)
+        property.set_owner(self)
         if isinstance(property, TypicalProperty):
             self._dir_of_colors[property.get_color()] += 1
         self.pay(property.get_price())

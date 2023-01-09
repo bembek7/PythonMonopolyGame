@@ -32,18 +32,17 @@ class PropertyField(Field):
             return False
 
     def Action(self, player: Player):
-        if self._property.get_owner() != "" and self._property.get_owner() != player.get_name():
+        if self._property.get_owner() != "" and self._property.get_owner() != player:
             player.pay(self._property.charge())
             self._property.get_owner().gain(self._property.charge())
 
     def buy(self, player: Player):
         player.buy_property(self._property)
-        self._property.set_owner(player)
 
 
 class DiceChargePropertyField(PropertyField):
     def Action(self, player: Player, dice_result):
-        if self._property.get_owner() != "" and self._property.get_owner() != player.get_name():
+        if self._property.get_owner() != "" and self._property.get_owner() != player:
             player.pay(self._property.charge(dice_result))
             self._property.get_owner().gain(self._property.charge(dice_result))
 

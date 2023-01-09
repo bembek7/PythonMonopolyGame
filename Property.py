@@ -25,14 +25,17 @@ class Property:
     def get_owner(self):
         return self._owner
 
-    def set_owner(self, players_name):
-        self._owner = players_name
+    def set_owner(self, player):
+        self._owner = player
 
     def get_name(self):
         return self._name
 
     def charge(self):
-        return self._basic_charge
+        if self._active:
+            return self._basic_charge
+        else:
+            return 0
 
     def get_price(self):
         return self._price
@@ -68,7 +71,7 @@ class TypicalProperty(Property):
 
     def charge(self):
         if self._active:
-            return self._basic_charge * self._apartments * self._apartment_price / 25
+            return self._basic_charge * self._apartments * self._apartment_price / 50
         else:
             return 0
 

@@ -16,31 +16,34 @@ class Player:
     cash : int
         cash amount of the player
     position : int
-        position of player
+        position of the player
     properties : array
-        properties of player
+        properties of theplayer
     in_jail : bool
-        if player is in jail
+        if player is in a jail
     rounds_left : int
-        rounds left for player in jail
-    dir_of_colors : dictionary
+        rounds left for player in a jail
+    dir_of_colors : dict
         what properties of colors player has
-    dir_of_colors_needed : dictionary
+    dir_of_colors_needed : dict
         what properties of colors player need to apartment
 
     Methods
     -------
+    decrement_rounds():
+        Decrement the number of rounds the player has left to be in jail by one.
+    get_rounds_left():
+        Returns the number of rounds left for the player to serve in jail.
+    imprison():
+        Imprison the player, setting the player in jail and resetting the rounds_left to 3
+    free():
+        Free the player, setting the player no longer in jail
+    can_afford(amount: int) -> bool:
+        Check if the player can afford a given amount of cash.
     lose():
-        Player is out of game and all of his poroperties are set their owner to none.
-    check_other_apartments(property):
-        Checks if other properties of this color have apartments
-    get_amount_of_type(type):
-        Returns a number of properties of given type that player posseses
-    move(result):
-        Moves the player through the board, gives him 200 when he goes through the start.
-    can_buy_apartment():
-        Returns true if player can buy any apratment
-    other are obvious
+        Removes the player from the game, losing all of their properties
+    lose_property(property: Property):
+        Removes a given property from an array of player Properties
     """
 
     def __init__(self, name) -> None:

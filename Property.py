@@ -1,6 +1,6 @@
 class Property:
     """
-    A class to represent a property.
+    A base class to represent a property.
 
     ...
 

@@ -7,6 +7,41 @@ from Dice import basic_roll
 
 
 class Game:
+    """
+    A class for storing useful methods in game.
+
+    ...
+
+    Attributes
+    ----------
+    board : list
+        a list of fields that make up the game board
+    players : list
+        a list of players that are playing the game
+    chance_result : int
+        a variable that holds the current result of a chance card
+    jail_price : int
+        the cost to leave jail
+
+    Methods
+    -------
+    who_wins():
+        returns the player with most cash
+    free_player(player:Player)
+        player pay jail_price and freed from jail
+    get_activation_price_from_name(name:str)
+        gets the activation price from property from its name
+    get_apartment_price_from_name(name:str)
+        gets the apartment price from property from its name
+    field_action(pos:int, player:Player):
+        depending on the field player is on, performs the action
+    player_loses(player:Player):
+        removes player from game and set his all properties to not have owner
+    add_player(name:str)
+        adds player to the game with the given name
+    sell_property(seller:Player, price:int, propertyname:str, buyer_name:str)
+        transfer the property from seller to buyer for the price.
+    """
     def __init__(self, board) -> None:
         self.board = board
         self.players = []

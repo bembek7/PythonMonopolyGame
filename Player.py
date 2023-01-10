@@ -4,6 +4,45 @@ from Property import SpecialProperty
 
 
 class Player:
+    """
+    A class to represent a player.
+
+    ...
+
+    Attributes
+    ----------
+    name : str
+        name of the player
+    cash : int
+        cash amount of the player
+    position : int
+        position of player
+    properties : array
+        properties of player
+    in_jail : bool
+        if player is in jail
+    rounds_left : int
+        rounds left for player in jail
+    dir_of_colors : dictionary
+        what properties of colors player has
+    dir_of_colors_needed : dictionary
+        what properties of colors player need to apartment
+
+    Methods
+    -------
+    lose():
+        Player is out of game and all of his poroperties are set their owner to none.
+    check_other_apartments(property):
+        Checks if other properties of this color have apartments
+    get_amount_of_type(type):
+        Returns a number of properties of given type that player posseses
+    move(result):
+        Moves the player through the board, gives him 200 when he goes through the start.
+    can_buy_apartment():
+        Returns true if player can buy any apratment
+    other are obvious
+    """
+
     def __init__(self, name) -> None:
         self._name = name
         self._cash = 1500  # zmienic po testach

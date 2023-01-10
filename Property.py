@@ -1,13 +1,40 @@
 class Property:
+    """
+    A class to represent a property.
+
+    ...
+
+    Attributes
+    ----------
+    name : str
+        name of the property
+    basic_charge : int
+        charge of the property
+    owner : Player
+        owner of the property, none if there is no owner
+    price : int
+        price of the property
+    active : bool
+        if property is active
+
+    Methods
+    -------
+    free():
+        sets owner to None and activate property
+    charge():
+        returns basic charge or 0 depending if property is active
+    other are obvious
+    """
+
     def __init__(self, name, basic_charge, price) -> None:
         self._name = name
         self._basic_charge = basic_charge
-        self._owner = ""
+        self._owner = None
         self._price = price
         self._active = True
 
     def free(self):
-        self._owner = ""
+        self._owner = None
         self._active = True
 
     def is_active(self):
@@ -42,6 +69,36 @@ class Property:
 
 
 class TypicalProperty(Property):
+    """
+    A class to represent a typical monopoly property inheriting from Property class.
+
+    ...
+
+    Attributes
+    ----------
+    name : str
+        name of the property
+    basic_charge : int
+        charge of the property
+    owner : Player
+        owner of the property, none if there is no owner
+    price : int
+        price of the property
+    active : bool
+        if property is active
+    color : string
+        color of the property
+    apartment_price : int
+        price of apartments that can be build on this property
+
+    Methods
+    -------
+    free():
+        sets owner to None and activate property, and sets nr of apartments to 0
+    charge():
+        returns basic charge multiplied accordingly to apartments number
+    other are obvious
+    """
     def __init__(self, name, basic_charge, price, color, apartment_price) -> None:
         super().__init__(name, basic_charge, price)
         self._color = color
@@ -77,6 +134,36 @@ class TypicalProperty(Property):
 
 
 class SpecialProperty(Property):
+    """
+    A class to represent a special property inheriting from Property class.
+
+    ...
+
+    Attributes
+    ----------
+    name : str
+        name of the property
+    basic_charge : int
+        charge of the property
+    owner : Player
+        owner of the property, none if there is no owner
+    price : int
+        price of the property
+    active : bool
+        if property is active
+    type : string
+        type of the property
+
+    Methods
+    -------
+    free():
+        sets owner to None and activate property
+    charge():
+        returns basic charge or 0 depending if property is active
+    get_type():
+        returns type of the property
+    other are obvious
+    """
     def __init__(self, name, basic_charge, price, type) -> None:
         super().__init__(name, basic_charge, price)
         self._type = type
@@ -86,6 +173,36 @@ class SpecialProperty(Property):
 
 
 class AirportProperty(SpecialProperty):
+    """
+    A class to represent an airport type of property inheriting from SpecialProperty class.
+
+    ...
+
+    Attributes
+    ----------
+    name : str
+        name of the property
+    basic_charge : int
+        charge of the property
+    owner : Player
+        owner of the property, none if there is no owner
+    price : int
+        price of the property
+    active : bool
+        if property is active
+    type : string
+        type of the property
+
+    Methods
+    -------
+    free():
+        sets owner to None and activate property
+    charge():
+        returns basic charge multiplied accordingly to number of airports that owner has
+    get_type():
+        returns type of the property
+    other are obvious
+    """
     def charge(self):
         if self._active:
             owning_other = self._owner.get_amount_of_type(self._type)
@@ -99,6 +216,36 @@ class AirportProperty(SpecialProperty):
 
 
 class DiceChargeProperty(SpecialProperty):
+    """
+    A class to represent a dice charge type of property inheriting from SpecialProperty class.
+
+    ...
+
+    Attributes
+    ----------
+    name : str
+        name of the property
+    basic_charge : int
+        charge of the property
+    owner : Player
+        owner of the property, none if there is no owner
+    price : int
+        price of the property
+    active : bool
+        if property is active
+    type : string
+        type of the property
+
+    Methods
+    -------
+    free():
+        sets owner to None and activate property
+    charge():
+        returns basic charge multiplied by dice result of currently moving player divided by two or not if owner has two of them or not
+    get_type():
+        returns type of the property
+    other are obvious
+    """
     def charge(self, dice_result):
         if self._active:
             owning_other = self._owner.get_amount_of_type(self._type)

@@ -26,13 +26,13 @@ class PropertyField(Field):
         return self._property
 
     def can_buy(self, player: Player):
-        if self._property.get_owner() == "":
+        if self._property.get_owner() is None:
             return player.can_afford(self._property.get_price())
         else:
             return False
 
     def action(self, player: Player):
-        if self._property.get_owner() != "" and self._property.get_owner() != player:
+        if self._property.get_owner() is not None and self._property.get_owner() != player:
             player.pay(self._property.charge())
             self._property.get_owner().gain(self._property.charge())
 
@@ -42,7 +42,7 @@ class PropertyField(Field):
 
 class DiceChargePropertyField(PropertyField):
     def action(self, player: Player, dice_result):
-        if self._property.get_owner() != "" and self._property.get_owner() != player:
+        if self._property.get_owner() is not None and self._property.get_owner() != player:
             player.pay(self._property.charge(dice_result))
             self._property.get_owner().gain(self._property.charge(dice_result))
 

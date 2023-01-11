@@ -7,6 +7,78 @@ from Field import PropertyField
 
 
 class MainWindow(QMainWindow):
+    """
+    MainWindow is the main class representing the game board and containing most of the logic for the game.
+    It sets up the GUI and connects the buttons to their respective actions.
+
+    Attributes
+    ----------
+    ui (Ui_MainWindow): Instance of the ui form.
+    used_names (list): List of names of players that have already been used.
+    game_instance (Game): Game instance
+    board (Board): board instance
+    nr_of_rounds (int): Number of rounds in game.
+    curr_player_index (int): Index of current player in game
+    already_rolled (bool): keep track whether current player already roll or not
+
+    Methods
+    -------
+    __init__(game: Game, parent=None):
+        initializes the MainWindow class and sets up the GUI, connects buttons to their respective actions and initializes attributes
+    check_broke():
+        checks if player is brokw
+    check_jail():
+        checks if player is in jail and sets up gui depending on it
+    add_player():
+        adds a player to the game
+    clicked_play():
+        call functions connected with startting the game
+    rolled():
+        call functions that need to be called after player rolled the dice
+    end_turn():
+        call functions that need to be called with the end of the turn
+    player_buys():
+        allows the current player to buy the property they landed on
+    deactivating_property():
+        updates gui when player deactivates property and call function to deactivate it
+    activating_property():
+        updates gui when player activates property and call function to activate it
+    buying_apartment():
+        updates gui when player buys apartment and call function to buy it
+    selling_apartment():
+        updates gui when player sells apartment and call function to sell it
+    selling_property():
+        updates gui when player sells property and call function to sell it
+    perform_field_action():
+        performs action on a field
+    player_win():
+        changes for winner screen
+    player_gave_up():
+        updates the interface when player gave up
+    free_of_jail():
+        updates the interface when player leaves jail
+    set_names():
+        set names of all the properties on the board
+    set_prices():
+        set prices of all the properties on the board
+    set_properties():
+        sets all the properties on the board
+    update_sell_button():
+        enable or disable sell button depending on conditions
+    update_player_list():
+        update list of players in the game
+    show_player():
+        displays information about the player who is currently selected
+    update_activate_property():
+        update the status of activate property button update the status of buy apartment button depending on certain conditions
+    update_buy_apartment():
+        update the status of buy apartment button depending on certain conditions
+    turn():
+        performes actions on the beginning of the turn
+    remove_player_from_board(player):
+        removes a player from the board
+    other are obvious
+    """
     def __init__(self, game, parent=None) -> None:
         super().__init__(parent)
         self.ui = Ui_MainWindow()

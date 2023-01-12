@@ -467,13 +467,14 @@ class MainWindow(QMainWindow):
         if not self._curr_player.is_in_jail():
             self.ui.RzutButton.setEnabled(True)
         self.check_jail()
-        self.update_properties_selling
+        self.update_properties_selling()
         self.update_lists()
 
     def end_turn(self):
         self.ui.ChanceResult.setText("")
         if self._curr_player.get_rounds_left() == 1:
             self.free_of_jail()
+            self._curr_player.decrement_rounds()
         if self._curr_player.is_in_jail():
             self._curr_player.decrement_rounds()
         self._curr_player_index = (self._curr_player_index + 1) % len(self._game_instance.players)

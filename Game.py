@@ -8,7 +8,7 @@ from Dice import basic_roll
 
 class Game:
     """
-    A class for storing useful methods in game.
+    A class for storing useful methods in game. and general data about the game
 
     ...
 
@@ -84,7 +84,6 @@ class Game:
 
     def roll_dice_result(self):
         self._dice_result = basic_roll(2, 6)
-        self._dice_result = 15  # changing for test reasons
         return self._dice_result
 
     def field_action(self, pos, player):

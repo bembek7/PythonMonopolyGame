@@ -1,3 +1,4 @@
+Ostateczną wersją jest ostatni commit
 Dokumentacja projektu Monopoly
 Struktura projekt:
 Stworzyłem 14 klas:

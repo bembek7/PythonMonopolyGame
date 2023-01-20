@@ -1,7 +1,7 @@
 from random import randint
 from Player import Player
 from Field import PropertyField
-from Field import DiceChargePropertyField
+from Field import DiceChargeField
 from Field import ChanceField
 from Dice import basic_roll
 
@@ -31,7 +31,7 @@ class Game:
         player pay jail_price and freed from jail
     get_activation_price_from_name(name:str)
         gets the activation price from property from its name
-    get_apartment_price_from_name(name:str)
+    get_apart_price(name:str)
         gets the apartment price from property from its name
     field_action(pos:int, player:Player):
         depending on the field player is on, performs the action
@@ -67,10 +67,11 @@ class Game:
     def get_activation_price_from_name(self, name):
         for field in self.board:
             if field.get_name() == name:
-                return field.get_property().get_price() / 2 + field.get_property().get_price() / 10
+                property_price = field.get_property().get_price()
+                return property_price / 2 + property_price / 10
                 break
 
-    def get_apartment_price_from_name(self, name):
+    def get_apart_price(self, name):
         for field in self.board:
             if field.get_name() == name:
                 return field.get_property().get_apartment_price()
@@ -94,7 +95,7 @@ class Game:
             self.board[pos].action(player, self._chance_result)
         else:
             self._chance_result == 0
-            if isinstance(self.board[pos], DiceChargePropertyField):
+            if isinstance(self.board[pos], DiceChargeField):
                 self.board[pos].action(player, self._dice_result)
             else:
                 self.board[pos].action(player)

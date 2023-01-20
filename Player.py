@@ -31,11 +31,11 @@ class Player:
     Methods
     -------
     decrement_rounds():
-        Decrement the number of rounds the player has left to be in jail by one.
+        Decrement the number of rounds the player has left to be in jail.
     get_rounds_left():
         Returns the number of rounds left for the player to serve in jail.
     imprison():
-        Imprison the player, setting the player in jail and resetting the rounds_left to 3
+        Setting the player in jail and resetting the rounds_left to 3
     free():
         Free the player, setting the player no longer in jail
     can_afford(amount: int) -> bool:
@@ -121,10 +121,14 @@ class Player:
 
     def lose_property(self, property):
         self._properties.remove(property)
+        if isinstance(property, TypicalProperty):
+            self._dir_of_colors[property.get_color()] -= 1
 
     def gain_property(self, property):
         self._properties.append(property)
         property.set_owner(self)
+        if isinstance(property, TypicalProperty):
+            self._dir_of_colors[property.get_color()] += 1
 
     def get_sellable_properties(self):
         sellable_properties = []
@@ -157,7 +161,8 @@ class Player:
             color = property.get_color()
             for property in self._properties:
                 if isinstance(property, TypicalProperty):
-                    if property.get_color() == color and property.get_apartments_nr() > 0:
+                    if (property.get_color() == color and
+                       property.get_apartments_nr() > 0):
                         return False
         return True
 
@@ -167,8 +172,8 @@ class Player:
             if isinstance(property, TypicalProperty):
                 if property.get_apartments_nr() > 0:
                     color = property.get_color()
-                    apartments_nr = property.get_apartments_nr()
-                    if self.can_sell_apartment_on_property(color, apartments_nr):
+                    aparts_nr = property.get_apartments_nr()
+                    if self.can_sell_apartment_on_property(color, aparts_nr):
                         sellable_apartments.append(property)
         return sellable_apartments
 
@@ -180,8 +185,8 @@ class Player:
                     if isinstance(property, TypicalProperty):
                         if property.get_apartments_nr() < 5:
                             color = property.get_color()
-                            apartments_nr = property.get_apartments_nr()
-                            if self.can_apartment_property(color, apartments_nr):
+                            aparts_nr = property.get_apartments_nr()
+                            if self.can_apartment_property(color, aparts_nr):
                                 available_apartments.append(property)
         return available_apartments
 
@@ -235,10 +240,7 @@ class Player:
         return result
 
     def buy_property(self, property: Property):
-        self._properties.append(property)
-        property.set_owner(self)
-        if isinstance(property, TypicalProperty):
-            self._dir_of_colors[property.get_color()] += 1
+        self.gain_property(property)
         self.pay(property.get_price())
 
     def move(self, result):

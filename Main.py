@@ -5,7 +5,7 @@ from Field import PayField
 from Field import ChanceField
 from Field import GoToJailField
 from Field import PropertyField
-from Field import DiceChargePropertyField
+from Field import DiceChargeField
 from Field import Field
 from GUI import gui_main
 from Game import Game
@@ -23,11 +23,11 @@ board = [
     PropertyField(5, AirportProperty("Airport1", 25, 200, "airport")),
     PropertyField(6, TypicalProperty("Light Blue1", 8, 100, "light blue", 50)),
     ChanceField(7, "Szansa"),
-    PropertyField(8, TypicalProperty("Light Blue2", 8, 100, "light blue", 50)),
-    PropertyField(9, TypicalProperty("Light Blue3", 10, 120, "light blue", 50)),
+    PropertyField(8, TypicalProperty("LightBlue2", 8, 100, "light blue", 50)),
+    PropertyField(9, TypicalProperty("LightBlue3", 10, 120, "light blue", 50)),
     Field(10, "Więzienie"),
     PropertyField(11, TypicalProperty("Pink1", 10, 140, "pink", 100)),
-    DiceChargePropertyField(12, DiceChargeProperty("DiceCharge1", 10, 150, "dicecharge")),
+    DiceChargeField(12, DiceChargeProperty("DCharge1", 10, 150, "dicecharge")),
     PropertyField(13, TypicalProperty("Pink2", 10, 140, "pink", 100)),
     PropertyField(14, TypicalProperty("Pink3", 12, 160, "pink", 100)),
     PropertyField(15, AirportProperty("Airport2", 25, 200, "airport")),
@@ -43,7 +43,7 @@ board = [
     PropertyField(25, AirportProperty("Airport3", 25, 200, "airport")),
     PropertyField(26, TypicalProperty("Yellow1", 28, 260, "yellow", 150)),
     PropertyField(27, TypicalProperty("Yellow2", 28, 260, "yellow", 150)),
-    DiceChargePropertyField(28, DiceChargeProperty("DiceCharge2", 10, 150, "dicecharge")),
+    DiceChargeField(28, DiceChargeProperty("DCharge2", 10, 150, "dicecharge")),
     PropertyField(29, TypicalProperty("Yellow3", 32, 280, "yellow", 150)),
     GoToJailField(30, "Idź do więzienia"),
     PropertyField(31, TypicalProperty("Green1", 32, 300, "green", 200)),
@@ -52,9 +52,9 @@ board = [
     PropertyField(34, TypicalProperty("Green3", 34, 320, "green", 200)),
     PropertyField(35, AirportProperty("Airport4", 25, 200, "airport")),
     ChanceField(36, "Szansa"),
-    PropertyField(37, TypicalProperty("Dark Blue1", 45, 360, "dark blue", 200)),
+    PropertyField(37, TypicalProperty("DarkBlue1", 45, 360, "dark blue", 200)),
     PayField(38, "Domiar Podatkowy", 100),
-    PropertyField(39, TypicalProperty("Dark Blue2", 50, 400, "dark blue", 200)),
+    PropertyField(39, TypicalProperty("DarkBlue2", 50, 400, "dark blue", 200))
 ]
 
 if __name__ == "__main__":

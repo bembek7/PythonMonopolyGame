@@ -70,7 +70,8 @@ class Property:
 
 class TypicalProperty(Property):
     """
-    A class to represent a typical monopoly property inheriting from Property class.
+    A class to represent a typical monopoly property.
+    Inherits from Property class.
 
     ...
 
@@ -94,41 +95,41 @@ class TypicalProperty(Property):
     Methods
     -------
     free():
-        sets owner to None and activate property, and sets nr of apartments to 0
+        sets owner to None and activate property, and sets nr of aparts to 0
     charge():
         returns basic charge multiplied accordingly to apartments number
     other are obvious
     """
-    def __init__(self, name, basic_charge, price, color, apartment_price) -> None:
+    def __init__(self, name, basic_charge, price, color, apart_price) -> None:
         super().__init__(name, basic_charge, price)
         self._color = color
-        self._apartments = 1  # 6 = hotel
-        self._apartment_price = apartment_price
+        self._aparts = 1  # 6 = hotel
+        self._apart_price = apart_price
 
     def free(self):
         super().free()
-        self._apartments = 1
+        self._aparts = 1
 
     def get_color(self):
         return self._color
 
     def get_apartment(self):
-        if self._apartments < 6:
-            self._apartments += 1
+        if self._aparts < 6:
+            self._aparts += 1
 
     def lose_apartment(self):
-        if self._apartments > 1:
-            self._apartments -= 1
+        if self._aparts > 1:
+            self._aparts -= 1
 
     def get_apartments_nr(self):
-        return self._apartments - 1
+        return self._aparts - 1
 
     def get_apartment_price(self):
-        return self._apartment_price
+        return self._apart_price
 
     def charge(self):
         if self._active:
-            return self._basic_charge * self._apartments * self._apartment_price / 50
+            return self._basic_charge * self._aparts * self._apart_price / 50
         else:
             return 0
 
@@ -174,7 +175,8 @@ class SpecialProperty(Property):
 
 class AirportProperty(SpecialProperty):
     """
-    A class to represent an airport type of property inheriting from SpecialProperty class.
+    A class to represent an airport type of property.
+    Inherits from SpecialProperty class.
 
     ...
 
@@ -198,7 +200,7 @@ class AirportProperty(SpecialProperty):
     free():
         sets owner to None and activate property
     charge():
-        returns basic charge multiplied accordingly to number of airports that owner has
+        returns charge multiplied accordingly to number of airports of owner
     get_type():
         returns type of the property
     other are obvious
@@ -217,7 +219,8 @@ class AirportProperty(SpecialProperty):
 
 class DiceChargeProperty(SpecialProperty):
     """
-    A class to represent a dice charge type of property inheriting from SpecialProperty class.
+    A class to represent a dice charge type of property.
+    Inherits from SpecialProperty class.
 
     ...
 
@@ -241,7 +244,8 @@ class DiceChargeProperty(SpecialProperty):
     free():
         sets owner to None and activate property
     charge():
-        returns basic charge multiplied by dice result of currently moving player divided by two or not if owner has two of them or not
+        returns charge multiplied by dice result of currently moving player
+        divided by two or not if owner has two of them or not.
     get_type():
         returns type of the property
     other are obvious

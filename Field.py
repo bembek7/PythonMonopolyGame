@@ -40,7 +40,7 @@ class Field:
 
 class PropertyField(Field):
     """
-    A class to represent a PropertyField on the board inheriting from Field class.
+    A class to represent a PropertyField inheriting from Field class.
 
     ...
 
@@ -60,7 +60,7 @@ class PropertyField(Field):
     action(player: Player)
         charge the player if the property is owned by another player
     can_buy(player: Player)
-        returns a boolean indicating if player can buy the property on the field.
+        returns a boolean indicating if player can buy the property.
     buy(player: Player)
         calls the method on player to buy property associated with the field
     """
@@ -78,17 +78,18 @@ class PropertyField(Field):
             return False
 
     def action(self, player: Player):
-        if self._property.get_owner() is not None and self._property.get_owner() != player:
+        owner = self._property.get_owner()
+        if owner is not None and owner != player:
             player.pay(self._property.charge())
-            self._property.get_owner().gain(self._property.charge())
+            owner.gain(self._property.charge())
 
     def buy(self, player: Player):
         player.buy_property(self._property)
 
 
-class DiceChargePropertyField(PropertyField):
+class DiceChargeField(PropertyField):
     """
-    A class to represent a DiceChargePropertyField on the board inheriting from PropertyField class.
+    A class to represent a DiceChargeField inheriting from PropertyField class.
 
     ...
 
@@ -106,28 +107,30 @@ class DiceChargePropertyField(PropertyField):
     get_name()
         returns the name of the field
     action(player: Player)
-        charge the player, using dice result as multiplier if the property is owned by another player
+        charges the player, using dice result as multiplier
     can_buy(player: Player)
-        returns a boolean indicating if player can buy the property on the field.
+        returns a boolean indicating if player can buy the property.
     buy(player: Player)
         calls the method on player to buy property associated with the field
     """
     def action(self, player: Player, dice_result):
-        if self._property.get_owner() is not None and self._property.get_owner() != player:
+        owner = self._property.get_owner()
+        if owner is not None and owner != player:
             player.pay(self._property.charge(dice_result))
-            self._property.get_owner().gain(self._property.charge(dice_result))
+            owner.gain(self._property.charge(dice_result))
 
 
 class ChanceField(Field):
     """
-    A class for field that represents a chance field on the board inheriting from Gield class.
+    A class for field that represents a chance field.
+    Inherits from Field class.
 
     ...
 
     Methods
     -------
     action(player: Player, result)
-        make the player lose or win small amount of money that gets as a "result".
+        make the player lose or win amount of money that gets as a "result".
     """
     def action(self, player, result):
         if result < 0:
@@ -138,7 +141,8 @@ class ChanceField(Field):
 
 class PayField(Field):
     """
-    A class for field that represents a field that requires the player to pay a certain amount on landing inheriting from Field class.
+    A class for field that requires the player to pay money on landing
+    Inherits from Field class.
 
     ...
 
@@ -162,7 +166,8 @@ class PayField(Field):
 
 class GoToJailField(Field):
     """
-    A field that represents a "go to jail" field on the board inheriting from Field class.
+    A field that represents a "go to jail" field on the board
+    Inherits from Field class.
 
     ...
 

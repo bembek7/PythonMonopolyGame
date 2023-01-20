@@ -1,6 +1,6 @@
 from Field import Field
 from Field import PropertyField
-from Field import DiceChargePropertyField
+from Field import DiceChargeField
 from Field import ChanceField
 from Field import PayField
 from Field import GoToJailField
@@ -48,7 +48,7 @@ def test_dice():
     player = Player("player")
     player2 = Player("player2")
     property = DiceChargeProperty("property", 10, 0, "dicecharge")
-    field = DiceChargePropertyField(0, property)
+    field = DiceChargeField(0, property)
     field.buy(player)
     field.action(player2, 4)
     assert player2.get_cash() == 1480

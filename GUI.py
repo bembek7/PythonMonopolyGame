@@ -8,7 +8,8 @@ from Field import PropertyField
 
 class MainWindow(QMainWindow):
     """
-    MainWindow is the main class representing the game board and containing most of the logic for the game.
+    MainWindow is the main class representing the game board
+    and containing most of the logic for the game.
     It sets up the GUI and connects the buttons to their respective actions.
 
     Attributes
@@ -19,12 +20,13 @@ class MainWindow(QMainWindow):
     board (Board): board instance
     nr_of_rounds (int): Number of rounds in game.
     curr_player_index (int): Index of current player in game
-    already_rolled (bool): keep track whether current player already roll or not
+    already_rolled (bool): keeps track whether the current player already roll
 
     Methods
     -------
     __init__(game: Game, parent=None):
-        initializes the MainWindow class and sets up the GUI, connects buttons to their respective actions and initializes attributes
+        initializes the MainWindow class and sets up the GUI,
+        connects buttons to their respective actions and initializes attributes
     check_broke():
         checks if player is brokw
     check_jail():
@@ -40,9 +42,11 @@ class MainWindow(QMainWindow):
     player_buys():
         allows the current player to buy the property they landed on
     deactivating_property():
-        updates gui when player deactivates property and call function to deactivate it
+        updates gui when player deactivates property and
+        call function to deactivate it
     activating_property():
-        updates gui when player activates property and call function to activate it
+        updates gui when player activates property and
+        call function to activate it
     buying_apartment():
         updates gui when player buys apartment and call function to buy it
     selling_apartment():
@@ -70,9 +74,9 @@ class MainWindow(QMainWindow):
     show_player():
         displays information about the player who is currently selected
     update_activate_property():
-        update the status of activate property button update the status of buy apartment button depending on certain conditions
+        update the status of activate property button depending on conditions
     update_buy_apartment():
-        update the status of buy apartment button depending on certain conditions
+        update the status of buy apartment button depending on conditions
     turn():
         performes actions on the beginning of the turn
     remove_player_from_board(player):
@@ -99,8 +103,8 @@ class MainWindow(QMainWindow):
         self.ui.ZastawButton.setEnabled(False)
         self.ui.GrajButton.setEnabled(False)
         self._used_names = []
-        self._game_instance = game
-        self._board = self._game_instance.board
+        self._game = game
+        self._board = self._game.board
         self._nr_of_rounds = 0
         self._curr_player_index = 0
         self.ui.ListaGraczyGra.itemClicked.connect(self.show_player)
@@ -127,13 +131,15 @@ class MainWindow(QMainWindow):
             self.ui.RzutButton.setEnabled(False)
         else:
             self.ui.Broke.setText("")
-            self.ui.RzutButton.setEnabled(not (self._already_rolled or self._curr_player.is_in_jail()))
-            self.ui.KoniecTuryButton.setEnabled(self._already_rolled or self._curr_player.is_in_jail())
+            is_jail = self._curr_player.is_in_jail()
+            rolled = self._already_rolled
+            self.ui.RzutButton.setEnabled(not (rolled or is_jail))
+            self.ui.KoniecTuryButton.setEnabled(rolled or is_jail)
 
     def player_gave_up(self):
         self.remove_player_from_board(self._curr_player)
         self._used_names.remove(self._curr_player.get_name())
-        self._game_instance.player_loses(self._curr_player)
+        self._game.player_loses(self._curr_player)
         self.update_player_list()
         self._curr_player_index -= 1
         self.end_turn()
@@ -143,13 +149,18 @@ class MainWindow(QMainWindow):
         self.ui.plansze.setCurrentIndex(2)
 
     def update_sell_button(self):
-        if self.ui.ListaNaSprzedaz.currentItem() is not None and self.ui.ListaKomu.currentItem() is not None and self.ui.Kwota.value() > 0:
+        if (self.ui.ListaNaSprzedaz.currentItem() is not None and
+           self.ui.ListaKomu.currentItem() is not None and
+           self.ui.Kwota.value() > 0):
             self.ui.SprzedazButton.setEnabled(True)
         else:
             self.ui.SprzedazButton.setEnabled(False)
 
     def selling_property(self):
-        self._game_instance.sell_property(self._curr_player, self.ui.Kwota.value(), self.ui.ListaNaSprzedaz.currentItem().text(), self.ui.ListaKomu.currentItem().text())
+        pr_name = self.ui.ListaNaSprzedaz.currentItem().text()
+        buyer_name = self.ui.ListaKomu.currentItem().text()
+        price = self.ui.Kwota.value()
+        self._game.sell_property(self._curr_player, price, pr_name, buyer_name)
         self.ui.Kwota.setValue(0)
         self.update_lists()
 
@@ -160,7 +171,7 @@ class MainWindow(QMainWindow):
 
     def update_players_selling(self):
         self.ui.ListaKomu.clear()
-        for player in self._game_instance.players:
+        for player in self._game.players:
             if player.get_name() != self._curr_player.get_name():
                 self.ui.ListaKomu.addItem(player.get_name())
 
@@ -182,7 +193,8 @@ class MainWindow(QMainWindow):
             for field in self._board:
                 if isinstance(field, PropertyField):
                     property = field.get_property()
-                    if isinstance(property, TypicalProperty) and property.get_name() == property_name:
+                    if (isinstance(property, TypicalProperty) and
+                       property.get_name() == property_name):
                         self._curr_player.buy_apartment(property)
                         self.update_lists()
                         break
@@ -221,25 +233,32 @@ class MainWindow(QMainWindow):
         button.setEnabled(len(properties) > 0)
 
     def update_buy(self):
-        if self._board[self._curr_player.get_position()].can_buy(self._curr_player) and not self.already_buyed and self._already_rolled:
+        curr_position = self._curr_player.get_position()
+        if (self._board[curr_position].can_buy(self._curr_player) and
+           not self.already_buyed and
+           self._already_rolled):
             self.ui.KupButton.setEnabled(True)
         else:
             self.ui.KupButton.setEnabled(False)
 
     def update_buy_apartment(self):
-        if not self._curr_player.can_afford(self._game_instance.get_apartment_price_from_name(self.ui.ListaKupienia.currentItem().text())):
+        name = self.ui.ListaKupienia.currentItem().text()
+        if not self._curr_player.can_afford(self._game.get_apart_price(name)):
             self.ui.KupDomekButton.setEnabled(False)
         else:
             self.ui.KupDomekButton.setEnabled(True)
 
     def update_buy_out_of_jail(self):
-        if self._curr_player.can_afford(self._game_instance.get_jail_price()) and self._curr_player.is_in_jail():
+        if (self._curr_player.can_afford(self._game.get_jail_price()) and
+           self._curr_player.is_in_jail()):
             self.ui.WiezienieButton.setEnabled(True)
         else:
             self.ui.WiezienieButton.setEnabled(False)
 
     def update_activate_property(self):
-        if not self._curr_player.can_afford(self._game_instance.get_activation_price_from_name(self.ui.ListaWykup.currentItem().text())):
+        name = self.ui.ListaWykup.currentItem().text()
+        price = self._game.get_activation_price_from_name(name)
+        if not self._curr_player.can_afford(price):
             self.ui.WykupButton.setEnabled(False)
         else:
             self.ui.WykupButton.setEnabled(True)
@@ -269,20 +288,26 @@ class MainWindow(QMainWindow):
         self.check_broke()
 
     def show_sellable_apartments(self):
-        self.show_list_widget(self.ui.ListaSprzedania, self._curr_player.get_sellable_apartments(), self.ui.SprzedajDomekButton)
+        props = self._curr_player.get_sellable_apartments()
+        button = self.ui.SprzedajDomekButton
+        self.show_list_widget(self.ui.ListaSprzedania, props, button)
 
     def show_available_apartments(self):
-        self.show_list_widget(self.ui.ListaKupienia, self._curr_player.get_available_apartments(), self.ui.KupDomekButton)
+        props = self._curr_player.get_available_apartments()
+        button = self.ui.KupDomekButton
+        self.show_list_widget(self.ui.ListaKupienia, props, button)
 
     def show_deactivable_properties(self):
-        self.show_list_widget(self.ui.ListaZastaw, self._curr_player.get_deactivable_properties(), self.ui.ZastawButton)
+        props = self._curr_player.get_deactivable_properties()
+        self.show_list_widget(self.ui.ListaZastaw, props, self.ui.ZastawButton)
 
     def show_activable_properties(self):
-        self.show_list_widget(self.ui.ListaWykup, self._curr_player.get_activable_properties(), self.ui.WykupButton)
+        props = self._curr_player.get_activable_properties()
+        self.show_list_widget(self.ui.ListaWykup, props, self.ui.WykupButton)
 
     def show_player(self, item):
         if item is not None:
-            for player in self._game_instance.players:
+            for player in self._game.players:
                 if player.get_name() == item.text():
                     self.ui.Pieniadze.setText(str(player.get_cash()))
                     self.ui.ListaPosiadlosci.clear()
@@ -298,52 +323,66 @@ class MainWindow(QMainWindow):
                 if not property.is_active():
                     string = "Zastawione"
                 if isinstance(property, TypicalProperty):
-                    if property.get_apartments_nr() < 5:
-                        string = f"Liczba domków : {property.get_apartments_nr()}"
+                    aparts_nr = property.get_apartments_nr()
+                    if aparts_nr < 5:
+                        string = f"Liczba domków : {aparts_nr}"
                     else:
                         string = "Hotel"
                 if a <= 9:
-                    self.ui.gridLayout_2.itemAtPosition(0, a).itemAt(2).widget().setText(string)
+                    item = self.ui.gridLayout_2.itemAtPosition(0, a)
+                    item.itemAt(2).widget().setText(string)
                 elif a <= 19:
-                    self.ui.gridLayout_2.itemAtPosition(a - 10, 10).itemAt(2).widget().setText(string)
+                    item = self.ui.gridLayout_2.itemAtPosition(a - 10, 10)
+                    item.itemAt(2).widget().setText(string)
                 elif a <= 29:
-                    self.ui.gridLayout_2.itemAtPosition(10, abs(a - 30)).itemAt(2).widget().setText(string)
+                    item = self.ui.gridLayout_2.itemAtPosition(10, abs(a - 30))
+                    item.itemAt(2).widget().setText(string)
                 else:
-                    self.ui.gridLayout_2.itemAtPosition(abs(a - 40), 0).itemAt(2).widget().setText(string)
+                    item = self.ui.gridLayout_2.itemAtPosition(abs(a - 40), 0)
+                    item.itemAt(2).widget().setText(string)
 
     def set_prices(self):
         for a in range(0, 40):
             if isinstance(self._board[a], PropertyField):
                 price = str(self._board[a].get_property().get_price())
                 if a <= 9:
-                    self.ui.gridLayout_2.itemAtPosition(0, a).itemAt(4).widget().setText(price)
+                    item = self.ui.gridLayout_2.itemAtPosition(0, a)
+                    item.itemAt(4).widget().setText(price)
                 elif a <= 19:
-                    self.ui.gridLayout_2.itemAtPosition(a - 10, 10).itemAt(4).widget().setText(price)
+                    item = self.ui.gridLayout_2.itemAtPosition(a - 10, 10)
+                    item.itemAt(4).widget().setText(price)
                 elif a <= 29:
-                    self.ui.gridLayout_2.itemAtPosition(10, abs(a - 30)).itemAt(4).widget().setText(price)
+                    item = self.ui.gridLayout_2.itemAtPosition(10, abs(a - 30))
+                    item.itemAt(4).widget().setText(price)
                 else:
-                    self.ui.gridLayout_2.itemAtPosition(abs(a - 40), 0).itemAt(4).widget().setText(price)
+                    item = self.ui.gridLayout_2.itemAtPosition(abs(a - 40), 0)
+                    item.itemAt(4).widget().setText(price)
 
     def set_names(self):
         for a in range(0, 40):
             name = self._board[a].get_name()
             if a <= 9:
-                self.ui.gridLayout_2.itemAtPosition(0, a).itemAt(0).widget().setText(name)
+                item = self.ui.gridLayout_2.itemAtPosition(0, a)
+                item.itemAt(0).widget().setText(name)
             elif a <= 19:
-                self.ui.gridLayout_2.itemAtPosition(a - 10, 10).itemAt(0).widget().setText(name)
+                item = self.ui.gridLayout_2.itemAtPosition(a - 10, 10)
+                item.itemAt(0).widget().setText(name)
             elif a <= 29:
-                self.ui.gridLayout_2.itemAtPosition(10, abs(a - 30)).itemAt(0).widget().setText(name)
+                item = self.ui.gridLayout_2.itemAtPosition(10, abs(a - 30))
+                item.itemAt(0).widget().setText(name)
             else:
-                self.ui.gridLayout_2.itemAtPosition(abs(a - 40), 0).itemAt(0).widget().setText(name)
+                item = self.ui.gridLayout_2.itemAtPosition(abs(a - 40), 0)
+                item.itemAt(0).widget().setText(name)
 
     def clicked_play(self):
         self.ui.plansze.setCurrentIndex(1)
         self._nr_of_rounds = self.ui.LiczbaRund.value()
         self.end_round = self._nr_of_rounds > 0
         self.turn()
-        for player in self._game_instance.players:
+        for player in self._game.players:
             index = 3
-            self.ui.gridLayout_2.itemAtPosition(0, 0).itemAt(index).widget().addItem(player.get_name())
+            item = self.ui.gridLayout_2.itemAtPosition(0, 0)
+            item.itemAt(index).widget().addItem(player.get_name())
 
     def player_buys(self):
         self._board[self._curr_player.get_position()].buy(self._curr_player)
@@ -356,8 +395,8 @@ class MainWindow(QMainWindow):
         self.ui.ListaGraczyGra.addItem(name)
 
     def rolled(self):
-        result = self._game_instance.roll_dice_result()
-        self._game_instance.zero_chance_result()
+        result = self._game.roll_dice_result()
+        self._game.zero_chance_result()
         self.ui.WynikRzutu.setText(str(result))
         self._already_rolled = True
         self.ui.KupDomekButton.setEnabled(False)
@@ -368,7 +407,7 @@ class MainWindow(QMainWindow):
         if not self._curr_player.is_in_jail():
             self.update_player_pos(old_pos, new_pos)
         self.perform_field_action(new_pos)
-        chance_result = self._game_instance.get_chance_result()
+        chance_result = self._game.get_chance_result()
         chance_str = ""
         if chance_result > 0:
             chance_str = f"Wygrałeś {chance_result}"
@@ -378,11 +417,12 @@ class MainWindow(QMainWindow):
         self.update_lists()
 
     def check_buying(self):
-        if self._board[self._curr_player.get_position()].can_buy(self._curr_player):
+        pos = self._curr_player.get_position()
+        if self._board[pos].can_buy(self._curr_player):
             self.ui.KupButton.setEnabled(True)
 
     def perform_field_action(self, pos):
-        self._game_instance.field_action(pos, self._curr_player)
+        self._game.field_action(pos, self._curr_player)
         if pos == 30:
             self.go_to_jail()
         self.ui.KoniecTuryButton.setEnabled(True)
@@ -398,7 +438,7 @@ class MainWindow(QMainWindow):
     def free_of_jail(self):
         delete_item(self._curr_player.get_name(), self.ui.ListaWiezienie)
         self.ui.ListaWiezienieWolni.addItem(self._curr_player.get_name())
-        self._game_instance.free_player(self._curr_player)
+        self._game.free_player(self._curr_player)
         if not self._already_rolled:
             self.ui.RzutButton.setEnabled(True)
         self.ui.WiezienieButton.setEnabled(False)
@@ -410,40 +450,54 @@ class MainWindow(QMainWindow):
         index = 3
         name = self._curr_player.get_name()
         if old_pos <= 9:
-            delete_item(name, self.ui.gridLayout_2.itemAtPosition(0, old_pos).itemAt(index).widget())
+            item = self.ui.gridLayout_2.itemAtPosition(0, old_pos)
+            delete_item(name, item.itemAt(index).widget())
         elif old_pos <= 19:
-            delete_item(name, self.ui.gridLayout_2.itemAtPosition(old_pos - 10, 10).itemAt(index).widget())
+            item = self.ui.gridLayout_2.itemAtPosition(old_pos - 10, 10)
+            delete_item(name, item.itemAt(index).widget())
         elif old_pos <= 29:
-            delete_item(name, self.ui.gridLayout_2.itemAtPosition(10, abs(old_pos - 30)).itemAt(index).widget())
+            item = self.ui.gridLayout_2.itemAtPosition(10, abs(old_pos - 30))
+            delete_item(name, item.itemAt(index).widget())
         else:
-            delete_item(name, self.ui.gridLayout_2.itemAtPosition(abs(old_pos - 40), 0).itemAt(index).widget())
+            item = self.ui.gridLayout_2.itemAtPosition(abs(old_pos - 40), 0)
+            delete_item(name, item.itemAt(index).widget())
         if new_pos <= 9:
-            self.ui.gridLayout_2.itemAtPosition(0, new_pos).itemAt(index).widget().addItem(name)
+            item = self.ui.gridLayout_2.itemAtPosition(0, new_pos)
+            item.itemAt(index).widget().addItem(name)
         elif new_pos <= 19:
-            self.ui.gridLayout_2.itemAtPosition(new_pos - 10, 10).itemAt(index).widget().addItem(name)
+            item = self.ui.gridLayout_2.itemAtPosition(new_pos - 10, 10)
+            item.itemAt(index).widget().addItem(name)
         elif new_pos <= 29:
-            self.ui.gridLayout_2.itemAtPosition(10, abs(new_pos - 30)).itemAt(index).widget().addItem(name)
+            item = self.ui.gridLayout_2.itemAtPosition(10, abs(new_pos - 30))
+            item.itemAt(index).widget().addItem(name)
         else:
-            self.ui.gridLayout_2.itemAtPosition(abs(new_pos - 40), 0).itemAt(index).widget().addItem(name)
+            item = self.ui.gridLayout_2.itemAtPosition(abs(new_pos - 40), 0)
+            item.itemAt(index).widget().addItem(name)
 
     def remove_player_from_board(self, player):
         index = 3
         pos = player.get_position()
         name = player.get_name()
         if pos <= 9:
-            delete_item(name, self.ui.gridLayout_2.itemAtPosition(0, pos).itemAt(index).widget())
+            item = self.ui.gridLayout_2.itemAtPosition(0, pos)
+            delete_item(name, item.itemAt(index).widget())
         elif pos <= 19:
-            delete_item(name, self.ui.gridLayout_2.itemAtPosition(pos - 10, 10).itemAt(index).widget())
+            item = self.ui.gridLayout_2.itemAtPosition(pos - 10, 10)
+            delete_item(name, item.itemAt(index).widget())
         elif pos <= 29:
-            delete_item(name, self.ui.gridLayout_2.itemAtPosition(10, abs(pos - 30)).itemAt(index).widget())
+            item = self.ui.gridLayout_2.itemAtPosition(10, abs(pos - 30))
+            delete_item(name, item.itemAt(index).widget())
         else:
-            delete_item(name, self.ui.gridLayout_2.itemAtPosition(abs(pos - 40), 0).itemAt(index).widget())
+            item = self.ui.gridLayout_2.itemAtPosition(abs(pos - 40), 0)
+            delete_item(name, item.itemAt(index).widget())
 
     def add_player(self):
-        if self.ui.ListaGraczy.count() < 6 and self.ui.lineEdit.text().strip() != "" and self.ui.lineEdit.text() not in self._used_names:
+        if (self.ui.ListaGraczy.count() < 6 and
+           self.ui.lineEdit.text().strip() != "" and
+           self.ui.lineEdit.text() not in self._used_names):
             self.setupPlayersList(self.ui.lineEdit.text())
             self._used_names.append(self.ui.lineEdit.text())
-            self._game_instance.add_player(self.ui.lineEdit.text())
+            self._game.add_player(self.ui.lineEdit.text())
         self.ui.lineEdit.setText("")
         if len(self._used_names) >= 2:
             self.ui.GrajButton.setEnabled(True)
@@ -453,12 +507,12 @@ class MainWindow(QMainWindow):
     def turn(self):
         self._already_rolled = False
         self.already_buyed = False
-        self._curr_player = self._game_instance.players[self._curr_player_index]
-        if len(self._game_instance.players) == 1:
+        self._curr_player = self._game.players[self._curr_player_index]
+        if len(self._game.players) == 1:
             self.player_win(self._curr_player.get_name())
-        if self.end_round and self._curr_player == self._game_instance.players[0]:
+        if self.end_round and self._curr_player == self._game.players[0]:
             if self._nr_of_rounds == 0:
-                winner_name = self._game_instance.who_wins()
+                winner_name = self._game.who_wins()
                 self.player_win(winner_name)
             self.ui.PozostaloRund.setText(str(self._nr_of_rounds))
         self.ui.Tura.setText(f"Tura gracza : {self._curr_player.get_name()}")
@@ -477,8 +531,9 @@ class MainWindow(QMainWindow):
             self._curr_player.decrement_rounds()
         if self._curr_player.is_in_jail():
             self._curr_player.decrement_rounds()
-        self._curr_player_index = (self._curr_player_index + 1) % len(self._game_instance.players)
-        if self.end_round and self._curr_player == self._game_instance.players[0]:
+        players_nr = len(self._game.players)
+        self._curr_player_index = (self._curr_player_index + 1) % players_nr
+        if self.end_round and self._curr_player == self._game.players[0]:
             self._nr_of_rounds -= 1
         self.turn()
 

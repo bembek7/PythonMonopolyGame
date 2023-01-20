@@ -15,7 +15,7 @@ DiceChargeProperty - klasa dziedzicząca po klasie SpecialProperty, która zmien
 Plik Field:
 Field - klasa reprezentująca pole na planszy, zawierająca nazwę i pozycję oraz metodę action, która wywoływana jest gdy gracz stanie na danym polu.
 PropertyField - klasa dziedzicząca po klasie Field, reprezentująca pole na planszy, na którym znajduje się posiadłość. Przez nią gracz kupuje posiadłości i jej akcja ściąga opłatę za pole z gracza, który na nim stanął.
-DiceChargePropertyField - klasa z dziedzicząca po klasie PropertyField, robiąca to samo tylko zamiast TypicalProperty lub AirportProperty trzyma DiceChargeProperty.
+DiceChargeField - klasa z dziedzicząca po klasie PropertyField, robiąca to samo tylko zamiast TypicalProperty lub AirportProperty trzyma DiceChargeProperty.
 ChanceField - klasa dziedzicząca po klasie Field jej metoda akcji przyjmuje kwotę i zabiera lub daję ją graczowi (jeśli dostanie ujemną zabiera).
 PayField - klasa dziedzicząca po klasie Field, gdy gracz stanie na te pole płaci określoną w konstruktorze kwotę.
 GoToJailField - klasa dziedzicząca po klasie Field, gdy gracz stanie na te pole idzie do więzienia.
@@ -33,6 +33,7 @@ Plik Dice - znajduję tam się metoda losująca wynik rzutu kostką.
 Plik Main - tworzy się tam obiekt klasy Game i przez niego uruchamia się program.
 
 Program uruchamiamy uruchamiając plik Main, wtedy wyświetli nam się okno dodawania graczy i wyboru liczby rund, gdy dodamy przynajmniej dwóch graczy dostępny stanie się przycisk gry, który zmienia planszę już na naszą główną grę z planszą i innymi informacjami. Przy użyciu interfejsu możemy sprzedawać i kupować domki, zastawiać i wykupować posiadłości, jak i handlować między graczami. Gdy wszyscy gracze się poddadzą ,są do tego zmuszeni jeśli nie mają gotówki (nie mogą skończyć tury mając długi) lub mogą to zrobić dobrowolnie, lub skończy się określona wcześniej liczba rund, plansza zmieni się i ogłosi zwycięzce.
+Ostatni commit jest wersją ostateczną, którą powinno się uruchamiać
 
 
 

@@ -1,4 +1,5 @@
 ENG, scroll down for PL version
+
 The final version is the last commit of the Monopoly Project Documentation. Project structure: I created 14 classes:
 
 File Player: Player - a player class containing methods necessary for managing the player, their cash, and receiving their properties.

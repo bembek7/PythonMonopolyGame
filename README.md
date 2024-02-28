@@ -1,6 +1,9 @@
 ENG, scroll down for PL version
 
-The final version is the last commit of the Monopoly Project Documentation. Project structure: I created 14 classes:
+The final version is the last commit of the Monopoly Project Documentation. 
+
+### Project structure:
+I created 14 classes:
 
 File Player: Player - a player class containing methods necessary for managing the player, their cash, and receiving their properties.
 
@@ -17,6 +20,8 @@ The attributes and methods of the classes are described in more detail in the co
 File Dice - it contains a method for generating a random dice roll result.
 
 File Main - an instance of the Game class is created there, and the program is executed through it.
+
+### Running Instructions
 
 To run the program, execute the Main file, which will display a window for adding players and selecting the number of rounds. Once you add at least two players, the game button becomes available, which switches the board to the main game view with the board and other information. Using the interface, you can buy and sell houses, mortgage and redeem properties, and trade between players. When all players surrender, either forcibly (if they have no cash and cannot finish their turn with debts) or voluntarily, or when a predetermined number of rounds is completed, the board changes, and the winner is announced. The last commit is the final version that should be run.
 
